@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import StartButton from "./components/StartButton"
-
+import MenuAppBar from "./components/MenuAppBar"
 
 class App extends Component {
   render() {
@@ -13,7 +13,8 @@ class App extends Component {
           </header>
 
           <div className="page_content">
-            <StartButton value="START CHAT" />
+            <StartButton />
+            <MenuAppBar />
           </div>
 
       </div>

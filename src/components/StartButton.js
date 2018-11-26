@@ -18,9 +18,9 @@ class StartButton extends React.Component {
   render(){
     return(
 
-      <button onClick={this.toggleClass} className={this.state.active ? "div animated pulse rollOut  start_button_container ":"div animated zoomIn start_button_container"}>
+      <button onClick={this.toggleClass} className={this.state.active ? "div animated pulse   start_button_container ":"div animated zoomIn start_button_container"}>
         <div className="div ">
-          <p className="event_desc">{this.props.value}</p>
+          <p className="event_desc">START CHAT</p>
         </div>
       </button>
 

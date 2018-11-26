@@ -145,7 +145,7 @@ body{
 .rollOut {
   -webkit-animation-name: rollOut;
   animation-name: rollOut;
-  
+
 }
 
 @-webkit-keyframes fadeOut {
