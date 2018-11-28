@@ -10,10 +10,13 @@ import Switch from "./Switch";
 
 
 const styles = theme => ({
-
+  root: {
+    display:"flex",
+  },
   paper: {
     width: "70%",
-    maxHeight: 435
+    maxHeight: 435,
+
   }
 });
 
@@ -46,7 +49,7 @@ class ConfirmationDialog extends React.Component{
         <DialogTitle id="confirmation-dialog-title">
           Sexual Preference
         </DialogTitle>
-        <DialogContent>
+        <DialogContent classes={{root: classes.root}}>
           <Switch switchOn={this.state.switchOn} switchToggle={this.switchToggle} />
         </DialogContent>
         <DialogActions>

@@ -23,9 +23,12 @@ class StartButton extends React.Component {
              appear={true}
              classNames="animation"
              unmountOnExit={true}
+             onExited={() =>{
+               this.props.loadingToggle();
+             }}
               >
-      <button onClick={this.toggleClass} className="div  ">
-        <div className="div ">
+      <button onClick={this.toggleClass} className="div">
+        <div className="div">
           <p className="event_desc">START CHAT</p>
         </div>
       </button>

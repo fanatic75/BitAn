@@ -5,14 +5,14 @@ class LoadingLogo extends React.Component {
 
 
 
-    componentDidMount(){
+    componentDidUpdate(){
       setTimeout(() =>{
-
-      },7000);
+        this.props.visibilityToggle();
+      },3100);
     }
 
   render(){
-    if(true){
+    if(this.props.loading){
     return(
       <div>
 
@@ -78,9 +78,7 @@ class LoadingLogo extends React.Component {
 
       </div>
       );
-    }else{
-      return( null);
-    }
+    }else{return(null);}
   }
 }
 

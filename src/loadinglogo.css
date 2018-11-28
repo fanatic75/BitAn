@@ -27,6 +27,7 @@ ul{
 
 }
 
+
 @keyframes glow {
   from{
     border: 0px solid #36e2eaed;
@@ -69,6 +70,49 @@ ul{
 
 
 
+@-webkit-keyframes glow {
+  from{
+    -webkit-border: 0px solid #36e2eaed;
+    -webkit-border-top: 0 solid;
+
+    -webkit-border-bottom: 4vh solid #000000;
+  }
+  20%{
+    -webkit-border: 4px solid #36e2eaed;
+    -webkit-border-top: 0 solid;
+
+    -webkit-border-bottom: 4vh solid #000000;
+  }
+  40%{
+    -webkit-border: 0px solid #36e2eaed;
+    -webkit-border-top: 0 solid;
+
+    -webkit-border-bottom: 4vh solid #000000;
+  }
+  60%{
+    -webkit-border: 4px solid #36e2eaed;
+    -webkit-border-top: 0 solid;
+
+    -webkit-border-bottom: 4vh solid #000000;
+  }
+  80%{
+    -webkit-border: 0px solid #36e2eaed;
+    -webkit-border-top: 0 solid;
+
+    -webkit-border-bottom: 4vh solid #000000;
+  }
+  to{
+    -webkit-border: 4px solid #36e2eaed;
+    -webkit-border-top: 0 solid;
+
+    -webkit-border-bottom: 4vh solid #000000;
+  }
+
+}
+
+
+
+
 .boxes{
 
 width: 4vh;
@@ -77,9 +121,16 @@ height: 0;
 
 border: 4px solid  #36e2eaed ;
 
+-webkit-animation:3s infinite linear glow;
+-webkit-animation-fill-mode: forwards;
+border-top: 0 solid;
 animation:3s infinite linear glow;
 animation-fill-mode: forwards;
-border-top: 0 solid;
+-moz-animation:3s infinite linear glow;
+-moz-animation-fill-mode: forwards;
+-o-animation:3s infinite linear glow;
+-o-animation-fill-mode: forwards;
+
 
 border-bottom: 4vh solid #000000;
 

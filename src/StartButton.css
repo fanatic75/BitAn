@@ -1,6 +1,6 @@
 
 body{
-  background-color:white;
+  background-color:black;
 }
 
 
@@ -13,6 +13,7 @@ body{
   border-radius: 80px;
   border: 3px solid #101010;
   display:block;
+  -webkit-tap-highlight-color:  rgba(255, 255, 255, 0);
 
 }
 .div:focus{
@@ -20,26 +21,25 @@ body{
 }
 
 
-
 .div div{
   background: #101010;
   position:relative;
   height: 4em;
-  width: 92%;
-  margin-top:3px;
+  width: 90%;
+  margin-top:4px;
   border: 2px solid #d5b138;
   cursor:pointer;
+  -webkit-tap-highlight-color:  rgba(255, 255, 255, 0);
 
 }
-.removeElement{
-  display:none;
-}
+
 .div p.event_desc {
   font: bold 23px "Helvetica Neue", Helvetica, Arial, sans-serif;
   text-align:center;
   position:relative;
   bottom:16%;
   color: #d5b138;
+  -webkit-tap-highlight-color:  rgba(255, 255, 255, 0);
 }
 
 .animation-appear-active{
@@ -86,39 +86,6 @@ body{
   }
 }
 
-@-webkit-keyframes pulse{
-  from {
-    -webkit-transform: scale3d(1, 1, 1);
-    transform: scale3d(1, 1, 1);
-  }
-
-  50% {
-    -webkit-transform: scale3d(1.2, 1.2, 1.2);
-    transform: scale3d(1.2, 1.2, 1.2);
-  }
-
-  to% {
-    -webkit-transform: scale3d(1, 1, 1);
-    transform: scale3d(1, 1, 1);
-  }
-}
-
-@keyframes pulse{
-  from {
-    -webkit-transform: scale3d(1, 1, 1);
-    transform: scale3d(1, 1, 1);
-  }
-
-  50% {
-    -webkit-transform: scale3d(1.2, 1.2, 1.2);
-    transform: scale3d(1.2, 1.2, 1.2);
-  }
-
-  to {
-    -webkit-transform: scale3d(1, 1, 1);
-    transform: scale3d(1, 1, 1);
-  }
-}
 
 
 

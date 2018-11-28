@@ -88,6 +88,7 @@ class MenuAppBar extends React.Component {
 
     return (
       <div className={classes.root}>
+        
         <MuiThemeProvider theme={theme}>
         <AppBar className={classes.appBarPosition}  color="primary">
 
