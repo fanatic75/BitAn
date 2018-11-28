@@ -9,8 +9,8 @@ import MenuItem from '@material-ui/core/MenuItem';
 import Menu from '@material-ui/core/Menu';
 import { MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles';
 import MoreIcon from '@material-ui/icons/MoreVert';
-import ConfirmationDialog from './ConfirmationDialog'
-
+import ConfirmationDialog from './ConfirmationDialog';
+import DonateDialog from "./DonateDialog";
 const styles = {
   root: {
     flexGrow: 1,
@@ -22,8 +22,7 @@ const styles = {
   },
   appBarPosition:{
     position:"fixed",
-    borderTopLeftRadius:"19px",
-    borderTopRightRadius:"19px",
+    top:"0px",
 
   },
 
@@ -38,13 +37,17 @@ const theme= createMuiTheme({
       custom:"#ff0000"
     },
   },
+  typography: {
+    useNextVariants: true,
+  },
 });
 
 class MenuAppBar extends React.Component {
   state = {
     auth: true,
     anchorEl: null,
-    dialogOpen:false
+    dialogOpen:false,
+    donateOpen:false,
   };
 
 
@@ -58,12 +61,23 @@ class MenuAppBar extends React.Component {
   handleClose = () => {
     this.setState({ anchorEl: null });
   };
-  dialogToggle = (event) =>{
+  dialogToggle = () =>{
     this.setState(
       {
-        anchorEl: event.currentTarget,
-        dialgOpen:true,
+        dialogOpen:!this.state.dialogOpen,
+        anchorEl: null,
+
       });
+
+  };
+  donateToggle = () =>{
+    this.setState(
+      {
+        donateOpen:!this.state.donateOpen,
+        anchorEl: null,
+
+      });
+
   };
 
 
@@ -78,7 +92,7 @@ class MenuAppBar extends React.Component {
         <AppBar className={classes.appBarPosition}  color="primary">
 
           <Toolbar>
-            <Typography component="h1"  variant="display1" color="secondary" align="center" className={classes.grow}>
+            <Typography   variant="h4" color="secondary" align="center" className={classes.grow}>
               BitChat
             </Typography>
             {auth && (
@@ -109,12 +123,15 @@ class MenuAppBar extends React.Component {
 
                 >
                   <MenuItem onClick={this.dialogToggle}>
-                    <ConfirmationDialog dialogOpen={this.state.dialogOpen} />
+
+                    Sexual Preference
                   </MenuItem>
 
-                  <MenuItem onClick={this.handleClose}>ShareUS</MenuItem>
-
+                  <MenuItem onClick={this.donateToggle}>Donate</MenuItem>
+                  <MenuItem onClick={this.donateToggle}>AboutUS</MenuItem>
                 </Menu>
+                <ConfirmationDialog  dialogToggle={this.dialogToggle} dialogOpen={this.state.dialogOpen}  />
+                <DonateDialog  donateToggle={this.donateToggle} donateOpen={this.state.donateOpen} />
               </div>
             )}
           </Toolbar>

@@ -1,0 +1,57 @@
+.circle-container {
+  position: relative;
+  width: 30vh;
+  height: 30vh;
+  padding: 0;
+  border-radius: 50%;
+  list-style: none;
+  margin: 0 0vh 0; }
+  .circle-container > * {
+    display: block;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 4vh;
+    height: 4vh;
+    margin: -2vh; }
+    .circle-container > *:nth-of-type(1) {
+      transform: rotate(0deg) translate(15vh) rotate(0deg) rotateZ(-93deg); }
+    .circle-container > *:nth-of-type(2) {
+      transform: rotate(20deg) translate(15vh) rotate(-20deg) rotateZ(-71deg); }
+    .circle-container > *:nth-of-type(3) {
+      transform: rotate(40deg) translate(15vh) rotate(-40deg) rotateZ(-49deg); }
+    .circle-container > *:nth-of-type(4) {
+      transform: rotate(60deg) translate(15vh) rotate(-60deg) rotateZ(-27deg); }
+    .circle-container > *:nth-of-type(5) {
+      transform: rotate(80deg) translate(15vh) rotate(-80deg) rotateZ(-5deg); }
+    .circle-container > *:nth-of-type(6) {
+      transform: rotate(100deg) translate(15vh) rotate(-100deg) rotateZ(17deg); }
+    .circle-container > *:nth-of-type(7) {
+      transform: rotate(120deg) translate(15vh) rotate(-120deg) rotateZ(39deg); }
+    .circle-container > *:nth-of-type(8) {
+      transform: rotate(140deg) translate(15vh) rotate(-140deg) rotateZ(61deg); }
+    .circle-container > *:nth-of-type(9) {
+      transform: rotate(160deg) translate(15vh) rotate(-160deg) rotateZ(83deg); }
+    .circle-container > *:nth-of-type(10) {
+      transform: rotate(180deg) translate(15vh) rotate(-180deg) rotateZ(105deg); }
+    .circle-container > *:nth-of-type(11) {
+      transform: rotate(200deg) translate(15vh) rotate(-200deg) rotateZ(127deg); }
+    .circle-container > *:nth-of-type(12) {
+      transform: rotate(220deg) translate(15vh) rotate(-220deg) rotateZ(149deg); }
+    .circle-container > *:nth-of-type(13) {
+      transform: rotate(240deg) translate(15vh) rotate(-240deg) rotateZ(171deg); }
+    .circle-container > *:nth-of-type(14) {
+      transform: rotate(260deg) translate(15vh) rotate(-260deg) rotateZ(193deg); }
+    .circle-container > *:nth-of-type(15) {
+      transform: rotate(280deg) translate(15vh) rotate(-280deg) rotateZ(215deg); }
+    .circle-container > *:nth-of-type(16) {
+      transform: rotate(300deg) translate(15vh) rotate(-300deg) rotateZ(237deg); }
+    .circle-container > *:nth-of-type(17) {
+      transform: rotate(320deg) translate(15vh) rotate(-320deg) rotateZ(259deg); }
+    .circle-container > *:nth-of-type(18) {
+      transform: rotate(340deg) translate(15vh) rotate(-340deg) rotateZ(281deg); }
+  .circle-container div {
+    display: block;
+    max-width: 100%; }
+
+/*# sourceMappingURL=loading.css.map */

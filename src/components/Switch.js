@@ -11,27 +11,14 @@ const styles = {
 };
 
 class Switches extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      OppositeSex: this.props.OppositeSex,
-    };
-    this.handleChange = this.handleChange.bind(this);
-  }
 
-  handleChange = () => {
 
-    this.setState({
-      OppositeSex: !this.state.OppositeSex,
-    });
-
-  };
 
   render() {
     const { classes } = this.props;
     return (
       <div>
-        <Switch checked={this.state.OppositeSex} onChange={this.handleChange} />
+        <Switch checked={this.props.switchOn} onChange={this.props.switchToggle} />
         <Typography
           classes={{
             root: classes.root

@@ -1,23 +1,16 @@
 import React, { Component } from 'react';
-import StartButton from "./components/StartButton"
-import MenuAppBar from "./components/MenuAppBar"
+import StartPage from  "./components/StartPage";
+import ChattingPage from "./components/ChattingPage";
 
 class App extends Component {
   render() {
     return (
-      <div className="App">
-          <header className="Appheader">
-            <nav>
-
-            </nav>
-          </header>
 
           <div className="page_content">
-            <StartButton />
-            <MenuAppBar />
+            <StartPage />
+            <ChattingPage />
           </div>
 
-      </div>
     );
   }
 }
