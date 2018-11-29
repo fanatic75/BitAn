@@ -2,31 +2,31 @@ import React from "react";
 import StartButton from "./StartButton";
 import LoadingLogo from "./LoadingLogo";
 
-class StartPage extends React.Component{
-  constructor(props){
+class StartPage extends React.Component {
+  constructor(props) {
     super(props);
-    this.state={
-      loading:false,
+    this.state = {
+      loading: false,
     };
-    this.loadingToggle=this.loadingToggle.bind(this);
+    this.loadingToggle = this.loadingToggle.bind(this);
   }
 
 
-  loadingToggle(){
+  loadingToggle() {
     this.setState({
-      loading:true,
+      loading: true,
     });
   }
-  render(){
-    if(false){
-        return(
-          <React.Fragment>
-            <StartButton loading={this.state.loading} loadingToggle={this.loadingToggle} />
-            <LoadingLogo visibilityToggle={this.props.visibilityToggle} visibility={this.props.visibility} loading={this.state.loading}/>
-          </React.Fragment>
-        );
-    }else{
-      return(null);
+  render() {
+    if (false) {
+      return (
+        <React.Fragment>
+          <StartButton loading={this.state.loading} loadingToggle={this.loadingToggle} />
+          <LoadingLogo visibilityToggle={this.props.visibilityToggle} visibility={this.props.visibility} loading={this.state.loading} />
+        </React.Fragment>
+      );
+    } else {
+      return (null);
     }
   }
 }
