@@ -52,8 +52,6 @@ const theme = createMuiTheme({
   },
 });
 
-
-
 class BottomMessageBar extends React.Component {
   constructor(props) {
     super(props);
@@ -68,24 +66,53 @@ class BottomMessageBar extends React.Component {
     this.sendOnEnter = this.sendOnEnter.bind(this);
   }
   handleSubmit(evtOrMessage) {
-    if (evtOrMessage.target) {
-
+    if(evtOrMessage.target){
       evtOrMessage.preventDefault();
-      //do stuff with target
+
+      this.setState({
+        message: '',
+        firstMessage: true,
+      });
+      this.props.addMessageFunc(this.state.message);
+      //Do something with target
     }
-    else {
+    else if(evtOrMessage!==""){
+
       this.props.addMessageFunc(evtOrMessage);
+
+
     }
     this.setState({
       message: '',
       firstMessage: true,
-    })
+    });
+
+}
+
+
+
+
+
+  sendOnEnter(e) {
+
+    if (e.keyCode === 13&&e.shiftKey===false)
+      {
+        this.handleSubmit(e.target.value);
+
+
+      }
+
+
+
+
   }
 
-  handleChange(event) {
-    this.setState({
-      message: event.target.value,
-    });
+  handleChange(e) {
+      this.setState({
+        message: e.target.value,
+      });
+      if(e.target.value==="\n")this.setState({message:""});
+
   };
   buttonToggle() {
     if (this.state.value === "STOP") {
@@ -104,14 +131,7 @@ class BottomMessageBar extends React.Component {
     }
   }
 
-  sendOnEnter(e) {
 
-    if (e.keyCode === 13)
-      this.handleSubmit(e.target.value);
-
-
-
-  }
 
   render() {
     const { classes } = this.props;
@@ -123,12 +143,13 @@ class BottomMessageBar extends React.Component {
           className={classes.container}
           noValidate
           autoComplete="off"
-          onSubmit={this.handleSubmit}>
+          onSubmit={this.handleSubmit}
+          >
           <Button onClick={this.buttonToggle} variant="contained" color="secondary" aria-label="Stop/New-Chat" className={classes.buttonChat}>
             {this.state.value}
           </Button>
           <TextField
-            required={true}
+
             id="outlined-required"
             label={this.state.firstMessage ? "Type your message" : "Say hello to stranger"}
             multiline
@@ -141,7 +162,7 @@ class BottomMessageBar extends React.Component {
             onKeyDown={this.sendOnEnter}
           />
 
-          <Button variant="fab" type="submit" size="small" color="primary" aria-label="send" className={classes.buttonSend}>
+          <Button variant="fab" type="submit"  size="small" color="primary" aria-label="send" className={classes.buttonSend}>
             <Icon className={classes.rightIcon}>send</Icon>
           </Button>
         </form>

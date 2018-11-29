@@ -93,7 +93,7 @@ class MenuAppBar extends React.Component {
 
           <Toolbar>
             <Typography   variant="h4" color="secondary" align="center" className={classes.grow}>
-              BitChat
+              BIT Chat
             </Typography>
             {auth && (
               <div>

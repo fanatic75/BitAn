@@ -18,7 +18,7 @@ class StartPage extends React.Component {
     });
   }
   render() {
-    if (false) {
+    if (!this.props.visibility) {
       return (
         <React.Fragment>
           <StartButton loading={this.state.loading} loadingToggle={this.loadingToggle} />
