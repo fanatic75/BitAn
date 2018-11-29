@@ -1,0 +1,206 @@
+*{
+  box-sizing: border-box;
+}
+body{
+  background: black;
+}
+.circles_container {
+  position: relative;
+  top: 24vh;
+
+}
+
+
+.circle {
+  border-radius: 50%;
+  margin: 0 auto;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+}
+
+
+ul{
+
+        list-style-type: none;
+
+}
+
+
+@keyframes glow {
+  from{
+    border: 0px solid #36e2eaed;
+    border-top: 0 solid;
+
+    border-bottom: 4vh solid #000000;
+  }
+  20%{
+    border: 4px solid #36e2eaed;
+    border-top: 0 solid;
+
+    border-bottom: 4vh solid #000000;
+  }
+  40%{
+    border: 0px solid #36e2eaed;
+    border-top: 0 solid;
+
+    border-bottom: 4vh solid #000000;
+  }
+  60%{
+    border: 4px solid #36e2eaed;
+    border-top: 0 solid;
+
+    border-bottom: 4vh solid #000000;
+  }
+  80%{
+    border: 0px solid #36e2eaed;
+    border-top: 0 solid;
+
+    border-bottom: 4vh solid #000000;
+  }
+  to{
+    border: 4px solid #36e2eaed;
+    border-top: 0 solid;
+
+    border-bottom: 4vh solid #000000;
+  }
+
+}
+
+
+
+@-webkit-keyframes glow {
+  from{
+    -webkit-border: 0px solid #36e2eaed;
+    -webkit-border-top: 0 solid;
+
+    -webkit-border-bottom: 4vh solid #000000;
+  }
+  20%{
+    -webkit-border: 4px solid #36e2eaed;
+    -webkit-border-top: 0 solid;
+
+    -webkit-border-bottom: 4vh solid #000000;
+  }
+  40%{
+    -webkit-border: 0px solid #36e2eaed;
+    -webkit-border-top: 0 solid;
+
+    -webkit-border-bottom: 4vh solid #000000;
+  }
+  60%{
+    -webkit-border: 4px solid #36e2eaed;
+    -webkit-border-top: 0 solid;
+
+    -webkit-border-bottom: 4vh solid #000000;
+  }
+  80%{
+    -webkit-border: 0px solid #36e2eaed;
+    -webkit-border-top: 0 solid;
+
+    -webkit-border-bottom: 4vh solid #000000;
+  }
+  to{
+    -webkit-border: 4px solid #36e2eaed;
+    -webkit-border-top: 0 solid;
+
+    -webkit-border-bottom: 4vh solid #000000;
+  }
+
+}
+
+
+
+
+.boxes{
+
+width: 4vh;
+
+height: 0;
+
+border: 4px solid  #36e2eaed ;
+
+-webkit-animation:3s infinite linear glow;
+-webkit-animation-fill-mode: forwards;
+border-top: 0 solid;
+animation:3s infinite linear glow;
+animation-fill-mode: forwards;
+-moz-animation:3s infinite linear glow;
+-moz-animation-fill-mode: forwards;
+-o-animation:3s infinite linear glow;
+-o-animation-fill-mode: forwards;
+
+
+border-bottom: 4vh solid #000000;
+
+
+margin: auto;
+
+}
+.fourth_color{
+  border-bottom-color:.565656;
+}
+.third_color{
+  border-bottom-color:.484747;
+}
+.second_color{
+  border-bottom-color:.333333;
+}
+.first_color{
+  border-bottom-color: .202020;
+}
+
+
+.b_circle {
+  background:  transparent;
+  width: 45vh;
+  height: 45vh;
+}
+
+.m_circle {
+  background: black;
+  width: 22vh;
+  height: 22vh;
+  margin: 4vh;
+  opacity:1;
+}
+.logo{
+  font-family: 'Alex Brush', cursive;
+  font-size:56px;
+  color:#d5b138;
+  border-radius:50%;
+  margin-top:15%;
+}
+.logo>div{
+  margin-left:10%;
+  margin-top:10%;
+}
+div>span{
+
+
+  font-family:serif;
+  font-size:20px;
+  margin-left: -10%
+}
+
+
+
+.logo>div:nth-child(2){
+
+
+    margin-top:-13%;
+    text-align:center;
+
+}
+
+
+
+.onstack{
+  background:transparent;
+  width: 30vh;
+  height: 30vh;
+  margin:7.5vh;
+  opacity:1;
+}
