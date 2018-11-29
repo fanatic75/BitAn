@@ -7,44 +7,44 @@ import TextField from '@material-ui/core/TextField';
 import { MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles';
 const styles = theme => ({
   container: {
-    position:"fixed",
-    background:"white",
-    bottom:"0px",
+    position: "fixed",
+    background: "white",
+    bottom: "0px",
     display: 'flex',
     flexDirection: "row",
     justifyContent: "space-between",
-    alignItems:"flex-end",
-    width:"99.99%",
+    alignItems: "flex-end",
+    width: "99.99%",
   },
   textField: {
-    margin:theme.spacing.unit,
-    marginBottom:"2px",
-    width:"70%",
+    margin: theme.spacing.unit,
+    marginBottom: "2px",
+    width: "70%",
 
 
   },
   buttonSend: {
-        marginBottom:"2px",
-        marginRight:theme.spacing.unit,
-    color:"white",
-    width:"50px",
+    marginBottom: "2px",
+    marginRight: theme.spacing.unit,
+    color: "white",
+    width: "50px",
 
   },
   buttonChat: {
-    color:"#d5b138",
+    color: "#d5b138",
 
     margin: theme.spacing.unit,
   },
 
 });
-const theme= createMuiTheme({
+const theme = createMuiTheme({
   palette: {
     primary: {
-      main:"#00562a",
+      main: "#00562a",
     },
     secondary: {
-      main:"#000000",
-      custom:"#ff0000",
+      main: "#000000",
+      custom: "#ff0000",
     },
   },
   typography: {
@@ -55,79 +55,99 @@ const theme= createMuiTheme({
 
 
 class BottomMessageBar extends React.Component {
-  constructor(props){
+  constructor(props) {
     super(props);
-    this.state={
-      value:"STOP",
+    this.state = {
+      value: "STOP",
       message: '',
-      firstMessage:false,
+      firstMessage: false,
     }
-    this.buttonToggle=this.buttonToggle.bind(this);
+    this.buttonToggle = this.buttonToggle.bind(this);
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
+    this.sendOnEnter = this.sendOnEnter.bind(this);
   }
-  handleSubmit(e) {
-    e.preventDefault()
-      
+  handleSubmit(evtOrMessage) {
+    if (evtOrMessage.target) {
+
+      evtOrMessage.preventDefault();
+      //do stuff with target
+    }
+    else {
+      this.props.addMessageFunc(evtOrMessage);
+    }
     this.setState({
       message: '',
-      firstMessage:true,
+      firstMessage: true,
     })
   }
 
-  handleChange (event) {
+  handleChange(event) {
     this.setState({
       message: event.target.value,
     });
   };
-  buttonToggle(){
-    if(this.state.value==="STOP"){
-        this.setState({
-          value:"Really?",
-        });
-      }else if (this.state.value==="Really?") {
-        this.setState({
-          value:"New Chat",
-        });
-      } else{
-        this.setState({
-          value:"STOP",
-          firstMessage:false,
-        })
-      }
+  buttonToggle() {
+    if (this.state.value === "STOP") {
+      this.setState({
+        value: "Really?",
+      });
+    } else if (this.state.value === "Really?") {
+      this.setState({
+        value: "New Chat",
+      });
+    } else {
+      this.setState({
+        value: "STOP",
+        firstMessage: false,
+      })
+    }
+  }
+
+  sendOnEnter(e) {
+
+    if (e.keyCode === 13)
+      this.handleSubmit(e.target.value);
+
+
+
   }
 
   render() {
     const { classes } = this.props;
 
     return (
-    <MuiThemeProvider theme={theme}>
+      <MuiThemeProvider theme={theme}>
 
-        <form className={classes.container}   noValidate autoComplete="off" onSubmit={this.handleSubmit}>
-          <Button onClick={this.buttonToggle} variant="contained" color="secondary"  aria-label="Stop/New-Chat" className={classes.buttonChat}>
-
+        <form
+          className={classes.container}
+          noValidate
+          autoComplete="off"
+          onSubmit={this.handleSubmit}>
+          <Button onClick={this.buttonToggle} variant="contained" color="secondary" aria-label="Stop/New-Chat" className={classes.buttonChat}>
             {this.state.value}
-      </Button>
-        <TextField
-          required={true}
-          id="outlined-required"
-          label={this.state.firstMessage?"Type your message":"Say hello to stranger"}
-          multiline
-          onChange={this.handleChange}
-          rowsMax="4"
-          value={this.state.message}
-          className={classes.textField}
-          margin="dense"
-          variant="outlined"
-        />
+          </Button>
+          <TextField
+            required={true}
+            id="outlined-required"
+            label={this.state.firstMessage ? "Type your message" : "Say hello to stranger"}
+            multiline
+            onChange={this.handleChange}
+            rowsMax="4"
+            value={this.state.message}
+            className={classes.textField}
+            margin="dense"
+            variant="outlined"
+            onKeyDown={this.sendOnEnter}
+          />
 
-          <Button variant="fab" type="submit" size="small" color="primary"  aria-label="send" className={classes.buttonSend}>
+          <Button variant="fab" type="submit" size="small" color="primary" aria-label="send" className={classes.buttonSend}>
             <Icon className={classes.rightIcon}>send</Icon>
           </Button>
-      </form>
+        </form>
 
 
-  </MuiThemeProvider>
+      </MuiThemeProvider>
     );
   }
 }
