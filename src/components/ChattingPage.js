@@ -1,15 +1,37 @@
 import React from "react";
-
+import MessageList from "./MessageList";
 import MenuAppBar from "./MenuAppBar";
-
+import BottomMessageBar from "./BottomMessageBar";
+const DUMMY_DATA = [
+  {
+    text: "who'll win? who'll win? who'll win? who'll win? who'll win? who'll win? who'll win? who'll win? who'll win? who'll win? who'll win? who'll win? who'll win? who'll win? who'll win? who'll win? who'll win? who'll win? who'll win? who'll win? who'll win? who'll win? who'll win? who'll win? who'll win? who'll win? who'll win? who'll win? who'll win? who'll win? who'll win? who'll win? who'll win? who'll win? who'll win? who'll win? who'll win? who'll win? who'll win? who'll win? who'll win? who'll win? who'll win? who'll win? who'll win? who'll win? who'll win? who'll win? who'll win? who'll win? who'll win? who'll win? who'll win? who'll win? who'll win? who'll win? who'll win? who'll win? who'll win? who'll win? who'll win? who'll win? who'll win? who'll win? who'll win? who'll win? who'll win? who'll win? who'll win? who'll win? who'll win? who'll win? who'll win? who'll win? who'll win? who'll win? who'll win? who'll win? who'll win? who'll win? who'll win? who'll win? who'll win? who'll win? who'll win? who'll win? who'll win? who'll win? "
+  },
+  
+]
 class ChattingPage extends React.Component{
-  render(){
-    if(this.props.visibility)document.body.style.backgroundColor = "white";
+  constructor(props){
+    super(props);
+    this.state={
+      messages:DUMMY_DATA,
+    }
 
-    if(this.props.visibility){
+
+  }
+
+  sendMessage(text){
+    const tempData = DUMMY_DATA.map()
+  }
+
+  render(){
+    if(this.props.visibility)document.body.style.backgroundColor = "#fff7ee";
+
+    if(true){
       return(
-        <MenuAppBar />
-        
+        <React.Fragment>
+          <MenuAppBar />
+          <MessageList messages={this.state.messages}/>
+          <BottomMessageBar />
+        </React.Fragment>
       );
     }else{
       return(null);

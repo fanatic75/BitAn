@@ -18,7 +18,6 @@ const styles = {
   grow: {
     flexGrow: 1,
     marginLeft:"50px"
-
   },
   appBarPosition:{
     position:"fixed",
@@ -88,7 +87,7 @@ class MenuAppBar extends React.Component {
 
     return (
       <div className={classes.root}>
-        
+
         <MuiThemeProvider theme={theme}>
         <AppBar className={classes.appBarPosition}  color="primary">
 
