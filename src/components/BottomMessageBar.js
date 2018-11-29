@@ -69,11 +69,10 @@ class BottomMessageBar extends React.Component {
   }
   handleSubmit(evtOrMessage) {
     if (evtOrMessage.target) {
-
       evtOrMessage.preventDefault();
       //do stuff with target
-    }
-    else {
+    } else {
+
       this.props.addMessageFunc(evtOrMessage);
     }
     this.setState({
@@ -106,10 +105,12 @@ class BottomMessageBar extends React.Component {
 
   sendOnEnter(e) {
 
-    if (e.keyCode === 13)
-      this.handleSubmit(e.target.value);
+    if (e.keyCode === 13) {
+      e.preventDefault();
+      if (e.target.value && e.target.value.toString().length > 0)
+        this.handleSubmit(e.target.value);
 
-
+    }
 
   }
 
@@ -124,10 +125,15 @@ class BottomMessageBar extends React.Component {
           noValidate
           autoComplete="off"
           onSubmit={this.handleSubmit}>
-          <Button onClick={this.buttonToggle} variant="contained" color="secondary" aria-label="Stop/New-Chat" className={classes.buttonChat}>
+          <Button onClick={this.buttonToggle}
+            variant="contained"
+            color="secondary"
+            aria-label="Stop/New-Chat"
+            className={classes.buttonChat}>
             {this.state.value}
           </Button>
           <TextField
+            inputRef={this.props.myRefProp}
             required={true}
             id="outlined-required"
             label={this.state.firstMessage ? "Type your message" : "Say hello to stranger"}
@@ -141,7 +147,13 @@ class BottomMessageBar extends React.Component {
             onKeyDown={this.sendOnEnter}
           />
 
-          <Button variant="fab" type="submit" size="small" color="primary" aria-label="send" className={classes.buttonSend}>
+          <Button
+            variant="fab"
+            type="submit"
+            size="small"
+            color="primary"
+            aria-label="send"
+            className={classes.buttonSend}>
             <Icon className={classes.rightIcon}>send</Icon>
           </Button>
         </form>
