@@ -8,7 +8,7 @@ import { MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles';
 const styles = theme => ({
   container: {
     position: "fixed",
-    background: "white",
+    background: "#ffffff",
     bottom: "0px",
     display: 'flex',
     flexDirection: "row",
@@ -20,19 +20,20 @@ const styles = theme => ({
     margin: theme.spacing.unit,
     marginBottom: "2px",
     width: "70%",
+    color:"#ffffff",
+
 
 
   },
   buttonSend: {
     marginBottom: "2px",
     marginRight: theme.spacing.unit,
-    color: "white",
+    color: "#ffffff ",
     width: "50px",
 
   },
   buttonChat: {
-    color: "#d5b138",
-
+    background:"#336242",
     margin: theme.spacing.unit,
   },
 
@@ -40,11 +41,11 @@ const styles = theme => ({
 const theme = createMuiTheme({
   palette: {
     primary: {
-      main: "#00562a",
+      main: "#336242",
     },
     secondary: {
-      main: "#000000",
-      custom: "#ff0000",
+      main: "#336242",
+
     },
   },
   typography: {
@@ -71,21 +72,26 @@ class BottomMessageBar extends React.Component {
 
       this.setState({
         message: '',
-        firstMessage: true,
+
       });
+      if(this.state.message!==""){
       this.props.addMessageFunc(this.state.message);
+      this.setState({
+        firstMessage: true,
+      })
+    }
       //Do something with target
     }
     else if(evtOrMessage!==""){
 
       this.props.addMessageFunc(evtOrMessage);
 
+      this.setState({
+        message: '',
+        firstMessage: true,
+      });
 
     }
-    this.setState({
-      message: '',
-      firstMessage: true,
-    });
 
 }
 
@@ -157,6 +163,7 @@ class BottomMessageBar extends React.Component {
             rowsMax="4"
             value={this.state.message}
             className={classes.textField}
+
             margin="dense"
             variant="outlined"
             onKeyDown={this.sendOnEnter}
@@ -175,6 +182,7 @@ class BottomMessageBar extends React.Component {
 
 BottomMessageBar.propTypes = {
   classes: PropTypes.object.isRequired,
+  addMessageFunc:PropTypes.func.isRequired,
 };
 
 export default withStyles(styles)(BottomMessageBar);

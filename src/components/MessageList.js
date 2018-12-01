@@ -12,19 +12,41 @@ const styles = theme => ({
     minHeight:"70vh",
 
   },
-  card: {
-   maxWidth: "60vw",
+  myMessagesCard: {
+   maxWidth: "50vw",
    marginTop:"20px",
    fontSize:"14px",
    ...theme.mixins.gutters(),
    paddingTop:".2px",
    paddingBottom:".2px",
-   marginRight:"30px",
+   marginLeft:"48vw",
+  display:"block",
    wordWrap:"break-word",
+   background:"#336242",
  },
+ StrMessagesCard:{
+   maxWidth: "50vw",
+   marginTop:"20px",
+   fontSize:"14px",
+   ...theme.mixins.gutters(),
+   paddingTop:".2px",
+   paddingBottom:".2px",
+  display:"block",
+   wordWrap:"break-word",
+   background:"#ffffff",
+ },
+ message:{
+   color:"white",
+   fontSize:"20px",
+ },
+ strMessage:{
+   color:"black",
+   fontSize:"20px",
+ }
 });
 
 class MessageList extends React.Component {
+
 
 render(){
 
@@ -33,20 +55,37 @@ render(){
 
         <Paper className={classes.root} elevation={1}>
         <ul className="message-list">
-          {this.props.messages.map(message => {
-            return (
-              <li key={message.id++}>
-                <Paper className={classes.card}>
+        {this.props.strMessagesArray.map(message => {
+          return (
+            <li key={message.id++}>
+              <Paper className={classes.StrMessagesCard}>
 
-                    <p>
-                      {message.text}
-                    </p>
+                  <p className={classes.strMessage}>
+                    {message.text}
+                  </p>
 
-                </Paper>
-              </li>
-            );
-          })}
+              </Paper>
+            </li>
+          );
+        })}
+        {this.props.messages.map(message => {
+          return (
+            <li key={message.id++}>
+              <Paper className={classes.myMessagesCard}>
+
+                  <p className={classes.message}>
+                    {message.text}
+                  </p>
+
+              </Paper>
+            </li>
+          );
+        })}
+
+
+
         </ul>
+
 
             </Paper>
         );
@@ -55,6 +94,7 @@ render(){
 MessageList.propTypes = {
   classes: PropTypes.object.isRequired,
   messages:PropTypes.array.isRequired,
+  strMessagesArray:PropTypes.array.isRequired,
 };
 
 export default withStyles(styles)(MessageList);

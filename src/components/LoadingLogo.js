@@ -8,7 +8,7 @@ class LoadingLogo extends React.Component {
     componentDidUpdate(){
       setTimeout(() =>{
         this.props.visibilityToggle();
-      },3100);
+      },2001);
     }
 
   render(){
