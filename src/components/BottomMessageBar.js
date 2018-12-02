@@ -5,10 +5,12 @@ import { withStyles } from '@material-ui/core/styles';
 import Icon from '@material-ui/core/Icon';
 import TextField from '@material-ui/core/TextField';
 import { MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles';
+import io from 'socket.io-client';
+const socket = io();
 const styles = theme => ({
   container: {
     position: "fixed",
-    background: "white",
+    background: "#ffffff",
     bottom: "0px",
     display: 'flex',
     flexDirection: "row",
@@ -20,19 +22,20 @@ const styles = theme => ({
     margin: theme.spacing.unit,
     marginBottom: "2px",
     width: "70%",
+    color: "#ffffff",
+
 
 
   },
   buttonSend: {
     marginBottom: "2px",
     marginRight: theme.spacing.unit,
-    color: "white",
+    color: "#ffffff ",
     width: "50px",
 
   },
   buttonChat: {
-    color: "#d5b138",
-
+    background: "#336242",
     margin: theme.spacing.unit,
   },
 
@@ -40,19 +43,17 @@ const styles = theme => ({
 const theme = createMuiTheme({
   palette: {
     primary: {
-      main: "#00562a",
+      main: "#336242",
     },
     secondary: {
-      main: "#000000",
-      custom: "#ff0000",
+      main: "#336242",
+
     },
   },
   typography: {
     useNextVariants: true,
   },
 });
-
-
 
 class BottomMessageBar extends React.Component {
   constructor(props) {
@@ -62,28 +63,76 @@ class BottomMessageBar extends React.Component {
       message: '',
       firstMessage: false,
     }
+    socket.on("chatMessage", msg => {
+      this.props.addStrMessage(msg);
+    });
+
     this.buttonToggle = this.buttonToggle.bind(this);
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
     this.sendOnEnter = this.sendOnEnter.bind(this);
+
   }
+
+
   handleSubmit(evtOrMessage) {
     if (evtOrMessage.target) {
       evtOrMessage.preventDefault();
-      //do stuff with target
-    } else {
+
+      this.setState({
+        message: '',
+
+      });
+      if (this.state.message !== "") {
+
+        this.props.addMessageFunc(this.state.message);
+        socket.emit("chatMessage", this.state.message);
+
+        this.setState({
+          firstMessage: true,
+        });
+      }
+      //Do something with target
+    }
+    else if (evtOrMessage !== "") {
 
       this.props.addMessageFunc(evtOrMessage);
+      socket.emit("chatMessage", evtOrMessage);
+
+      this.setState({
+        message: '',
+        firstMessage: true,
+      });
+
     }
-    this.setState({
-      message: '',
-      firstMessage: true,
-    })
+
   }
 
-  handleChange(event) {
+
+
+
+
+  sendOnEnter(e) {
+
+    if (e.keyCode === 13 && e.shiftKey === false) {
+      this.handleSubmit(e.target.value);
+
+
+    }
+    if (e.keyCode === 13) {
+      e.preventDefault();
+      if (e.target.value && e.target.value.toString().length > 0)
+        this.handleSubmit(e.target.value);
+
+    }
+
+
+
+  }
+
+  handleChange(e) {
     this.setState({
-      message: event.target.value,
+      message: e.target.value,
     });
   };
   buttonToggle() {
@@ -103,18 +152,11 @@ class BottomMessageBar extends React.Component {
     }
   }
 
-  sendOnEnter(e) {
 
-    if (e.keyCode === 13) {
-      e.preventDefault();
-      if (e.target.value && e.target.value.toString().length > 0)
-        this.handleSubmit(e.target.value);
-
-    }
-
-  }
 
   render() {
+
+
     const { classes } = this.props;
 
     return (
@@ -125,6 +167,7 @@ class BottomMessageBar extends React.Component {
           noValidate
           autoComplete="off"
           onSubmit={this.handleSubmit}>
+
           <Button onClick={this.buttonToggle}
             variant="contained"
             color="secondary"
@@ -132,6 +175,7 @@ class BottomMessageBar extends React.Component {
             className={classes.buttonChat}>
             {this.state.value}
           </Button>
+
           <TextField
             inputRef={this.props.myRefProp}
             required={true}
@@ -162,10 +206,12 @@ class BottomMessageBar extends React.Component {
       </MuiThemeProvider>
     );
   }
+
 }
 
 BottomMessageBar.propTypes = {
   classes: PropTypes.object.isRequired,
+  addMessageFunc: PropTypes.func.isRequired,
 };
 
 export default withStyles(styles)(BottomMessageBar);

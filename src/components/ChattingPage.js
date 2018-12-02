@@ -2,23 +2,32 @@ import React from "react";
 import MessageList from "./MessageList";
 import MenuAppBar from "./MenuAppBar";
 import BottomMessageBar from "./BottomMessageBar";
-import { Grid } from "@material-ui/core";
+import PropTypes from 'prop-types';
+
 const DUMMY_DATA = [
   {
     text: "who'll win? who'll win? who'll win? who'll win? who'll win? who'll win? who'll win? who'll win? who'll win? who'll win? who'll win? who'll win? who'll win? who'll win? who'll win? who'll win? who'll win? who'll win? who'll win? who'll win? who'll win? who'll win? who'll win? who'll win? who'll win? who'll win? who'll win? who'll win? who'll win? who'll win? who'll win? who'll win? who'll win? who'll win? who'll win? who'll win? who'll win? who'll win? who'll win? who'll win? who'll win? who'll win? who'll win? who'll win? who'll win? who'll win? who'll win? who'll win? who'll win? who'll win? who'll win? who'll win? who'll win? who'll win? who'll win? who'll win? who'll win? who'll win? who'll win? who'll win? who'll win? who'll win? who'll win? who'll win? who'll win? who'll win? who'll win? who'll win? who'll win? who'll win? who'll win? who'll win? who'll win? who'll win? who'll win? who'll win? who'll win? who'll win? who'll win? who'll win? who'll win? who'll win? who'll win? who'll win? who'll win? who'll win? who'll win? who'll win? "
     , id: "1"
   },
+];
 
-]
+const myMessagesObject = [
+
+
+];
+
+let listID = 0;
+
 class ChattingPage extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      messages: DUMMY_DATA,
+      myMessages: myMessagesObject,
     }
     this.messageRef = React.createRef();
 
     this.addMessage = this.addMessage.bind(this);
+    this.addStrMessage = this.addStrMessage.bind(this);
   }
 
 
@@ -28,8 +37,8 @@ class ChattingPage extends React.Component {
       this.messageRef.current.focus();
       this.setFocusOnInput();
     }
-
   }
+
   setFocusOnInput = () => {
     if (this.inputRef) {
       this.inputRef.focus();
@@ -48,31 +57,42 @@ class ChattingPage extends React.Component {
     }, this.setFocusOnMessage);
   }
 
-
-  sendMessage(text) {
-    const tempData = DUMMY_DATA.map()
+  addStrMessage(messageFromStranger) {
+    this.setState(() => {
+      const temp = { text: messageFromStranger, id: listID++, fromStr: true }
+      return (this.state.myMessages.push(temp));
+    });
   }
 
+
+
+
   render() {
+
+
+
     if (this.props.visibility) document.body.style.backgroundColor = "#fff7ee";
 
-    if (true) {
+    if (this.props.visibility) {
       return (
         <React.Fragment>
-          <Grid>
 
-            <MenuAppBar />
 
-            <MessageList messageRef={this.messageRef} messages={this.state.messages} />
+          <MenuAppBar />
 
-            <BottomMessageBar myRefProp={this.createInputRef} addMessageFunc={this.addMessage} />
-          </Grid>
-        </React.Fragment>
+          <MessageList messageRef={this.messageRef} messages={this.state.messages} />
+
+          <BottomMessageBar myRefProp={this.createInputRef} addMessageFunc={this.addMessage} addStrMessage={this.addStrMessage} />
+
+        </React.Fragment >
       );
     } else {
       return (null);
     }
   }
+}
+ChattingPage.propTypes = {
+  visibility: PropTypes.bool.isRequired,
 }
 
 export default ChattingPage;

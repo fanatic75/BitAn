@@ -1,6 +1,8 @@
 import React from "react";
 import StartButton from "./StartButton";
 import LoadingLogo from "./LoadingLogo";
+import PropTypes from 'prop-types';
+
 
 class StartPage extends React.Component {
   constructor(props) {
@@ -18,7 +20,7 @@ class StartPage extends React.Component {
     });
   }
   render() {
-    if (false) {
+    if (!this.props.visibility) {
       return (
         <React.Fragment>
           <StartButton loading={this.state.loading} loadingToggle={this.loadingToggle} />
@@ -29,6 +31,10 @@ class StartPage extends React.Component {
       return (null);
     }
   }
+}
+StartPage.propTypes = {
+  visibility:PropTypes.bool.isRequired,
+  visibilityToggle:PropTypes.func.isRequired,
 }
 
 export default StartPage;
