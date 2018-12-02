@@ -12,13 +12,14 @@ const styles = theme => ({
     paddingBottom: theme.spacing.unit * 2,
     marginTop: theme.spacing.unit * 9,
     marginBottom: theme.spacing.unit * 9,
-    minHeight: "75vh",
-    maxHeight:"75vh",
+
+    maxHeight:"60vh",
     overflow:"scroll",
     overflowX:"hidden",
     "&::-webkit-scrollbar":{
       background:"transparent",
-    }
+    },
+    boxSizing:'border-box',
   },
   myMessagesCard: {
     minWidth: "50vw",
@@ -47,12 +48,12 @@ const styles = theme => ({
 
   message: {
     color: "white",
-    fontSize: "20px",
+    fontSize: "15px",
     outline:"none",
   },
   strMessage: {
     color: "black",
-    fontSize: "20px",
+    fontSize: "17px",
     outline:"none",
   }
 });

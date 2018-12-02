@@ -167,7 +167,7 @@ class BottomMessageBar extends React.Component {
 
           <TextField
             inputRef={this.props.myRefProp}
-          
+            onClick={this.props.setFocusOnMessage}
             id="outlined-required"
             label={this.state.firstMessage ? "Type your message" : "Say hello to stranger"}
             multiline
@@ -202,6 +202,8 @@ BottomMessageBar.propTypes = {
   classes: PropTypes.object.isRequired,
   addMessageFunc: PropTypes.func.isRequired,
   focusonInput:PropTypes.func.isRequired,
+  setFocusOnMessage:PropTypes.func.isRequired,
+  
 };
 
 export default withStyles(styles)(BottomMessageBar);
