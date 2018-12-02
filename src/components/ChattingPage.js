@@ -22,7 +22,7 @@ class ChattingPage extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      myMessages: myMessagesObject,
+      messages: myMessagesObject,
     }
     this.messageRef = React.createRef();
 
@@ -59,8 +59,8 @@ class ChattingPage extends React.Component {
 
   addStrMessage(messageFromStranger) {
     this.setState(() => {
-      const temp = { text: messageFromStranger, id: listID++, fromStr: true }
-      return (this.state.myMessages.push(temp));
+      const temp = { text: messageFromStranger, id: Date.now(), fromStr: true }
+      return (this.state.messages.push(temp));
     });
   }
 

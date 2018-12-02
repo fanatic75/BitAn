@@ -78,7 +78,6 @@ class BottomMessageBar extends React.Component {
   handleSubmit(evtOrMessage) {
     if (evtOrMessage.target) {
       evtOrMessage.preventDefault();
-
       this.setState({
         message: '',
 
@@ -113,21 +112,11 @@ class BottomMessageBar extends React.Component {
 
 
   sendOnEnter(e) {
-
     if (e.keyCode === 13 && e.shiftKey === false) {
-      this.handleSubmit(e.target.value);
-
-
-    }
-    if (e.keyCode === 13) {
       e.preventDefault();
       if (e.target.value && e.target.value.toString().length > 0)
         this.handleSubmit(e.target.value);
-
     }
-
-
-
   }
 
   handleChange(e) {
