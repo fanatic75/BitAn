@@ -4,12 +4,7 @@ import MenuAppBar from "./MenuAppBar";
 import BottomMessageBar from "./BottomMessageBar";
 import PropTypes from 'prop-types';
 
-const DUMMY_DATA = [
-  {
-    text: "who'll win? who'll win? who'll win? who'll win? who'll win? who'll win? who'll win? who'll win? who'll win? who'll win? who'll win? who'll win? who'll win? who'll win? who'll win? who'll win? who'll win? who'll win? who'll win? who'll win? who'll win? who'll win? who'll win? who'll win? who'll win? who'll win? who'll win? who'll win? who'll win? who'll win? who'll win? who'll win? who'll win? who'll win? who'll win? who'll win? who'll win? who'll win? who'll win? who'll win? who'll win? who'll win? who'll win? who'll win? who'll win? who'll win? who'll win? who'll win? who'll win? who'll win? who'll win? who'll win? who'll win? who'll win? who'll win? who'll win? who'll win? who'll win? who'll win? who'll win? who'll win? who'll win? who'll win? who'll win? who'll win? who'll win? who'll win? who'll win? who'll win? who'll win? who'll win? who'll win? who'll win? who'll win? who'll win? who'll win? who'll win? who'll win? who'll win? who'll win? who'll win? who'll win? who'll win? who'll win? who'll win? who'll win? who'll win? who'll win? "
-    , id: "1"
-  },
-];
+
 
 const myMessagesObject = [
 
@@ -35,7 +30,18 @@ class ChattingPage extends React.Component {
     if (this.messageRef) {
       // console.log(this.messageRef);
       this.messageRef.current.focus();
-      this.setFocusOnInput();
+      this.inputRef.focus();
+
+    }
+  }
+  setFocusOnStrMessage = () => {
+    if (this.messageRef) {
+      // console.log(this.messageRef);
+      this.messageRef.current.focus();
+
+    } else if(this.inputRef.focus()){
+      this.messageRef.current.focus();
+      this.inputRef.focus();
     }
   }
 
@@ -48,7 +54,7 @@ class ChattingPage extends React.Component {
   createInputRef = el => this.inputRef = el;
 
   addMessage(message) {
-    console.log(message);
+
     this.setState(prevState => {
       let messages = prevState.messages;
       const temp = { text: message, id: Date.now() }
@@ -61,7 +67,7 @@ class ChattingPage extends React.Component {
     this.setState(() => {
       const temp = { text: messageFromStranger, id: Date.now(), fromStr: true }
       return (this.state.messages.push(temp));
-    });
+    }, this.setFocusOnStrMessage);
   }
 
 
@@ -82,7 +88,7 @@ class ChattingPage extends React.Component {
 
           <MessageList messageRef={this.messageRef} messages={this.state.messages} />
 
-          <BottomMessageBar myRefProp={this.createInputRef} addMessageFunc={this.addMessage} addStrMessage={this.addStrMessage} />
+          <BottomMessageBar  myRefProp={this.createInputRef} addMessageFunc={this.addMessage} addStrMessage={this.addStrMessage} />
 
         </React.Fragment >
       );

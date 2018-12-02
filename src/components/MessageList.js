@@ -5,19 +5,26 @@ import Paper from '@material-ui/core/Paper';
 
 const styles = theme => ({
   root: {
-
+    minWidth:"99vw",
+    position:"fixed",
+    bottom:"0vh",
     paddingTop: theme.spacing.unit * 2,
     paddingBottom: theme.spacing.unit * 2,
     marginTop: theme.spacing.unit * 9,
     marginBottom: theme.spacing.unit * 9,
-    minHeight: "70vh",
-
+    minHeight: "75vh",
+    maxHeight:"75vh",
+    overflow:"scroll",
+    overflowX:"hidden",
+    "&::-webkit-scrollbar":{
+      background:"transparent",
+    }
   },
   myMessagesCard: {
     minWidth: "50vw",
     maxWidth: "50vw",
     marginTop: "20px",
-    fontSize: "14px",
+
     ...theme.mixins.gutters(),
     paddingTop: ".2px",
     paddingBottom: ".2px",
@@ -30,7 +37,7 @@ const styles = theme => ({
     minWidth: "50vw",
     maxWidth: "50vw",
     marginTop: "20px",
-    fontSize: "14px",
+
     ...theme.mixins.gutters(),
     paddingTop: ".2px",
     paddingBottom: ".2px",
@@ -41,10 +48,12 @@ const styles = theme => ({
   message: {
     color: "white",
     fontSize: "20px",
+    outline:"none",
   },
   strMessage: {
     color: "black",
     fontSize: "20px",
+    outline:"none",
   }
 });
 
@@ -54,7 +63,7 @@ class MessageList extends React.Component {
     const { classes } = this.props;
     return (
 
-      <Paper className={classes.root} elevation={1}>
+      <Paper className={classes.root}  elevation={1}>
         <ul className="message-list">
 
           {this.props.messages.map((message, index, arr) => {
