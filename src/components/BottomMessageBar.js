@@ -5,6 +5,8 @@ import { withStyles } from '@material-ui/core/styles';
 import Icon from '@material-ui/core/Icon';
 import TextField from '@material-ui/core/TextField';
 import { MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles';
+import io from 'socket.io-client';
+const socket=io();
 const styles = theme => ({
   container: {
     position: "fixed",
@@ -61,11 +63,18 @@ class BottomMessageBar extends React.Component {
       message: '',
       firstMessage: false,
     }
+    socket.on("chatMessage",msg => {
+      this.props.addStrMessage(msg);
+    });
+
     this.buttonToggle = this.buttonToggle.bind(this);
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
     this.sendOnEnter = this.sendOnEnter.bind(this);
+
   }
+
+
   handleSubmit(evtOrMessage) {
     if(evtOrMessage.target){
       evtOrMessage.preventDefault();
@@ -75,16 +84,20 @@ class BottomMessageBar extends React.Component {
 
       });
       if(this.state.message!==""){
+
       this.props.addMessageFunc(this.state.message);
+      socket.emit("chatMessage",this.state.message);
+
       this.setState({
         firstMessage: true,
-      })
+      });
     }
       //Do something with target
     }
     else if(evtOrMessage!==""){
 
       this.props.addMessageFunc(evtOrMessage);
+      socket.emit("chatMessage",evtOrMessage);
 
       this.setState({
         message: '',
@@ -140,6 +153,8 @@ class BottomMessageBar extends React.Component {
 
 
   render() {
+
+
     const { classes } = this.props;
 
     return (

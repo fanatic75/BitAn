@@ -3,6 +3,7 @@ import StartButton from "./StartButton";
 import LoadingLogo from "./LoadingLogo";
 import PropTypes from 'prop-types';
 
+
 class StartPage extends React.Component {
   constructor(props) {
     super(props);
