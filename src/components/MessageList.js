@@ -5,22 +5,19 @@ import Paper from '@material-ui/core/Paper';
 
 const styles = theme => ({
   root: {
-    minWidth:"99vw",
+    minWidth:"100vw",
     position:"fixed",
-    bottom:"0vh",
-    paddingTop: theme.spacing.unit * 2,
-    paddingBottom: theme.spacing.unit * 2,
-    marginTop: theme.spacing.unit * 9,
-    marginBottom: theme.spacing.unit * 9,
-
-    maxHeight:"60vh",
+    top:"8vh",
+    maxHeight:"73%",
     overflow:"scroll",
     overflowX:"hidden",
     "&::-webkit-scrollbar":{
       background:"transparent",
     },
-    boxSizing:'border-box',
+
+
   },
+
   myMessagesCard: {
     minWidth: "50vw",
     maxWidth: "50vw",
@@ -33,6 +30,7 @@ const styles = theme => ({
     marginLeft: "38vw",
     wordWrap: "break-word",
     background: "#336242",
+
   },
   strMessagesCard: {
     minWidth: "50vw",
@@ -44,6 +42,7 @@ const styles = theme => ({
     paddingBottom: ".2px",
     wordWrap: "break-word",
     background: "#ffffff",
+
   },
 
   message: {
@@ -55,6 +54,13 @@ const styles = theme => ({
     color: "black",
     fontSize: "17px",
     outline:"none",
+  },
+  noOutline:{
+    outline:"none",
+  },
+  messageList:{
+
+
   }
 });
 
@@ -64,15 +70,15 @@ class MessageList extends React.Component {
     const { classes } = this.props;
     return (
 
-      <Paper className={classes.root}  elevation={1}>
-        <ul className="message-list">
+      <div className={classes.root}  elevation={1}>
+        <ul className={classes.messageList}>
 
           {this.props.messages.map((message, index, arr) => {
             return (
-              <li key={message.id} >
-                <Paper className={message.fromStr ? classes.strMessagesCard : classes.myMessagesCard}>
+              <li  tabIndex={-1} ref={(index + 1) === arr.length ? this.props.messageRef : undefined} className={classes.noOutline}  key={message.id} >
+                <Paper  className={message.fromStr ? classes.strMessagesCard : classes.myMessagesCard}>
 
-                  <p tabIndex={-1} ref={(index + 1) === arr.length ? this.props.messageRef : undefined} className={message.fromStr ? classes.strMessage : classes.message}>
+                  <p   className={message.fromStr ? classes.strMessage : classes.message}>
                     {message.text}
                   </p>
 
@@ -86,14 +92,15 @@ class MessageList extends React.Component {
         </ul>
 
 
-      </Paper>
+      </div>
     );
   }
 }
 MessageList.propTypes = {
   classes: PropTypes.object.isRequired,
   messages: PropTypes.array.isRequired,
-
+  addMessageFunc:PropTypes.func.isRequired,
+  addStrMessage:PropTypes.func.isRequired,
 };
 
 export default withStyles(styles)(MessageList);

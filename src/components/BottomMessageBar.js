@@ -9,20 +9,24 @@ import io from 'socket.io-client';
 const socket = io();
 const styles = theme => ({
   container: {
-    position: "fixed",
+
     background: "#ffffff",
-    bottom: "0px",
+
+    position:"fixed",
+    bottom:"0px",
+
     display: 'flex',
     flexDirection: "row",
     justifyContent: "space-between",
     alignItems: "flex-end",
     width: "99.99%",
+
   },
   textField: {
     margin: theme.spacing.unit,
     marginBottom: "2px",
     width: "70%",
-    color: "#ffffff",
+
 
 
 
@@ -37,7 +41,11 @@ const styles = theme => ({
   buttonChat: {
     background: "#336242",
     margin: theme.spacing.unit,
+    color:"#ffffff",
   },
+  rightIcon:{
+    transform:"rotate(333deg)",
+  }
 
 });
 const theme = createMuiTheme({
@@ -46,7 +54,7 @@ const theme = createMuiTheme({
       main: "#336242",
     },
     secondary: {
-      main: "#336242",
+      main: "#ffffff",
 
     },
   },
@@ -77,12 +85,13 @@ class BottomMessageBar extends React.Component {
 
   handleSubmit(evtOrMessage) {
     if (evtOrMessage.target) {
+
       evtOrMessage.preventDefault();
       this.setState({
         message: '',
 
       });
-      if (this.state.message !== "") {
+      if (this.state.message.trim().length >0) {
 
         this.props.addMessageFunc(this.state.message);
         socket.emit("chatMessage", this.state.message);
@@ -93,7 +102,7 @@ class BottomMessageBar extends React.Component {
       }
       //Do something with target
     }
-    else if (evtOrMessage !== "") {
+    else  {
 
       this.props.addMessageFunc(evtOrMessage);
       socket.emit("chatMessage", evtOrMessage);
@@ -114,7 +123,7 @@ class BottomMessageBar extends React.Component {
   sendOnEnter(e) {
     if (e.keyCode === 13 && e.shiftKey === false) {
       e.preventDefault();
-      if (e.target.value && e.target.value.toString().length > 0)
+      if (e.target.value && e.target.value.toString().trim().length > 0)
         this.handleSubmit(e.target.value);
     }
   }
@@ -159,7 +168,7 @@ class BottomMessageBar extends React.Component {
 
           <Button onClick={this.buttonToggle}
             variant="contained"
-            color="secondary"
+            color="primary"
             aria-label="Stop/New-Chat"
             className={classes.buttonChat}>
             {this.state.value}
@@ -167,7 +176,7 @@ class BottomMessageBar extends React.Component {
 
           <TextField
             inputRef={this.props.myRefProp}
-            onClick={this.props.setFocusOnMessage}
+
             id="outlined-required"
             label={this.state.firstMessage ? "Type your message" : "Say hello to stranger"}
             multiline
@@ -201,9 +210,8 @@ class BottomMessageBar extends React.Component {
 BottomMessageBar.propTypes = {
   classes: PropTypes.object.isRequired,
   addMessageFunc: PropTypes.func.isRequired,
-  focusonInput:PropTypes.func.isRequired,
-  setFocusOnMessage:PropTypes.func.isRequired,
-  
+  addStrMessage:PropTypes.func.isRequired,
+
 };
 
 export default withStyles(styles)(BottomMessageBar);

@@ -1,8 +1,8 @@
 import React from "react";
 import MessageList from "./MessageList";
 import MenuAppBar from "./MenuAppBar";
-import BottomMessageBar from "./BottomMessageBar";
 import PropTypes from 'prop-types';
+import BottomMessageBar from "./BottomMessageBar";
 
 
 
@@ -11,13 +11,14 @@ const myMessagesObject = [
 
 ];
 
-let listID = 0;
+
 
 class ChattingPage extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       messages: myMessagesObject,
+
     }
     this.messageRef = React.createRef();
 
@@ -27,9 +28,9 @@ class ChattingPage extends React.Component {
 
 
   setFocusOnMessage = () => {
-    if (this.messageRef) {
+    if (this.messageRef)
         this.messageRef.current.scrollIntoView(false);
-            }
+
   }
 
 
@@ -45,6 +46,7 @@ class ChattingPage extends React.Component {
 
     this.setState(prevState => {
       let messages = prevState.messages;
+      console.log(this.inputRef);
       const temp = { text: message, id: Date.now() }
       messages.push(temp);
       return { messages };
@@ -69,14 +71,14 @@ class ChattingPage extends React.Component {
 
     if (this.props.visibility) {
       return (
-        <React.Fragment>
+        <React.Fragment >
 
 
           <MenuAppBar />
 
-          <MessageList messageRef={this.messageRef} messages={this.state.messages} />
+          <MessageList messageRef={this.messageRef}  messages={this.state.messages}  addMessageFunc={this.addMessage} addStrMessage={this.addStrMessage} />
+          <BottomMessageBar myRefProp={this.createInputRef}  addMessageFunc={this.addMessage} addStrMessage={this.addStrMessage}  />
 
-          <BottomMessageBar  messageRef={this.messageRef} setFocusOnMessage={this.setFocusOnMessage}myRefProp={this.createInputRef} addMessageFunc={this.addMessage} addStrMessage={this.addStrMessage} />
 
         </React.Fragment >
       );
