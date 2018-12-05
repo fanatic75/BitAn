@@ -3,36 +3,15 @@ const app = express();
 const http = require('http').Server(app);
 const path = require("path");
 const io = require("socket.io")(http);
-const redisAdapter = require('socket.io-redis');
-io.adapter(redisAdapter({ host: 'localhost', port: 8020 }));
 app.use(express.static(path.join(__dirname, 'build')));
-
-const roomExist= (propertyName, inputArray) => {
-  let seenDuplicate = false,
-      testObject = {};
-
-  inputArray.map(function(item) {
-    let itemPropertyName = item[propertyName];
-    if (itemPropertyName in testObject) {
-      testObject[itemPropertyName].duplicate = true;
-      item.duplicate = true;
-      seenDuplicate = true;
-    }
-    else {
-      testObject[itemPropertyName] = item;
-      delete item.duplicate;
-    }
-  });
-
-  return seenDuplicate;
-}
-
 
 let counter=0;
 let totalUsers=0;
 let userID=0;
 let noOfRooms=Math.floor(totalUsers/2);
 const users = [];
+const duplicateArray=[];
+const disconnectMsg="Stranger has disonnected. Please refresh the Page.";
 
 
 const getRandomIntInclusive = (min, max) => {
@@ -42,62 +21,78 @@ const getRandomIntInclusive = (min, max) => {
 }
 
 
-const roomFullOrNot = (roomNos,users) => {
-  if(roomExist(roomNos,users)){
-    console.log("room exist already");
-      const i=counter++;
-      console.log(i);
-        if(counter%2!==0){
-          const j=counter++;
-          console.log(j);
-          return true;
-        }
-        return false;
-      //this is the thing if you can see it.
-  }    else{
-      return false; }
-}
+const roomExist = (temp,duplicateArray) =>{ //function to check if the duplicateArray contains the room already or not.
+  if(duplicateArray.includes(temp.roomNo)){
+    return true;
+  }else{return false;}
+};
+
+
+
+const roomFullOrNot = (temp,duplicateArray) => {  //function for checking if both of the uers have been inserted into the room or not.
+  if(roomExist(temp,duplicateArray)){
+      if(io.sockets.adapter.rooms[temp.roomNo].length>1){
+        return true;
+      }
+     else{
+       return false;
+     }
+   }else{
+      return false;
+    }
+};
+
+
+
+const deleteRoom = (someRoom) => { //function for deleting the room and taking out all the users from it.
+
+  io.of('/').in(someRoom).clients(function(error, clients) {
+        clients.forEach(function (socket_id) {
+            io.sockets.sockets[socket_id].leave('room name');
+        });
+    });
+
+};
 
 
 app.get('/', function (req, res) {
   res.sendFile(__dirname + '/build/index.html');
 });
+
+
 io.on("connection", socket => {
-  console.log("no of users are "+ ++totalUsers);
-  noOfRooms=Math.floor(totalUsers/2);
+
+  noOfRooms=Math.floor(totalUsers/2);//updaing the no of rooms when a new user is added.
 
   for(let done=0;done<21;done++){
-  const temp={userID:socket.id,value:socket,roomNo:getRandomIntInclusive(0,noOfRooms)};
-  users.push(temp);
-  console.log("user chooses "+temp.roomNo);
-  let myCond ;
-
-  io.of('/').adapter.clients([temp.roomNo], (err, clients) => {
-    if(clients.length<3){
-      myCond= true;
-    } else{myCond= false;} // an array containing socket ids in 'room1' and/or 'room2'
-});
-    if(myCond){
-      console.log("user joins "+temp.roomNo);
+    const temp={userID:socket.id,roomNo:getRandomIntInclusive(0,noOfRooms)}; //user details
+    users.push(temp); //pusing user details into users array
+    if(roomFullOrNot(temp,duplicateArray)===false){  //checking if the room is full or not, if full insert the user to some other room
       socket.join(temp.roomNo);
-      done=22;}
-      else{
-        users.pop();
-        console.log("can't enter "+temp.roomNo);
-        if(done===21){
-          socket.disconnect();
-        }}
-      }
-  socket.on("chatMessage", msg => {
-    let index=users.findIndex(x => x.userID===socket.id);
-    socket.to(users[index].roomNo).broadcast.emit("chatMessage", msg);
-  });
-  socket.on("disconnect", () => {
-    let index=users.findIndex(x => x.userID===socket.id);
-     console.log("no of users are "+ --totalUsers);
-       noOfRooms=Math.floor(totalUsers/2);
-      users.splice(index,1);
+      duplicateArray.push(temp.roomNo);  //pushing the room to an array which contains all the rooms that exist already.
+      done=22;                             //exiting the loop.
+    }  else{
+        users.pop();                        //taking out the user from the users array as there is no space in room and finding a new room again.
+        }
 
+
+      } //loop ends here
+
+
+  socket.on("chatMessage", msg => {  //reading the message event which comes from the client.
+    let index=users.findIndex(x => x.userID===socket.id);  //finding out the client's room no so that it goes to the same room no.
+    socket.to(users[index].roomNo).broadcast.emit("chatMessage", msg); //pushing the message to the other client in the same room.
+  });
+
+
+  socket.on("disconnect", () => {  //reading the disconnect event.
+    let index=users.findIndex(x => x.userID===socket.id); //finding the index of the disconnected user in the users array.
+       noOfRooms=Math.floor(totalUsers/2); //updating the no of rooms after the user disconnects.
+       socket.to(users[index].roomNo).broadcast.emit("chatMessage", disconnectMsg); //emitting the message to the other client that the stranger has disconnected.
+       deleteRoom(users[index].roomNo); //deleting the room since nobody is chatting in it anymore.
+       let indexDuplicateArray=duplicateArray.findIndex(x=>x===users[index].roomNo); //finding the index of room in the duplicateArray which was just deleted.
+       duplicateArray.splice(indexDuplicateArray,1); //removing the room from the duplicateArray since the room doesn't exist anymore.
+      users.splice(index,1); //removing the user from the users array.
    });
 });
 
