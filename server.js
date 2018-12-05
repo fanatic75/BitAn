@@ -68,7 +68,7 @@ io.on("connection", socket => {
   const temp={userID:socket.id,value:socket,roomNo:getRandomIntInclusive(0,noOfRooms)};
   users.push(temp);
   console.log("user chooses "+temp.roomNo);
-    if(roomFullOrNot("roomNo",users)===false){
+    if(io.sockets.adapter.rooms[temp.roomNo].length<3){
       console.log("user joins "+temp.roomNo);
       socket.join(temp.roomNo);
       done=22;}
