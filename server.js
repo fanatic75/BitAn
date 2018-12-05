@@ -1,8 +1,8 @@
 const express = require('express');
 const app = express();
-const http = require('http').Server(app);
+const server = require('http').createServer(app);
 const path = require("path");
-const io = require("socket.io")(http);
+const io = require("socket.io").listen(server);
 app.use(express.static(path.join(__dirname, 'build')));
 
 let counter=0;
@@ -48,7 +48,7 @@ const deleteRoom = (someRoom) => { //function for deleting the room and taking o
 
   io.of('/').in(someRoom).clients(function(error, clients) {
         clients.forEach(function (socket_id) {
-            io.sockets.sockets[socket_id].leave('room name');
+            io.sockets.sockets[socket_id].leave(someRoom);
         });
     });
 
@@ -67,9 +67,14 @@ io.on("connection", socket => {
   for(let done=0;done<21;done++){
     const temp={userID:socket.id,roomNo:getRandomIntInclusive(0,noOfRooms)}; //user details
     users.push(temp); //pusing user details into users array
+        console.log("user chooses "+users[users.length-1].roomNo);
     if(roomFullOrNot(temp,duplicateArray)===false){  //checking if the room is full or not, if full insert the user to some other room
       socket.join(temp.roomNo);
-      duplicateArray.push(temp.roomNo);  //pushing the room to an array which contains all the rooms that exist already.
+      console.log("user enters "+users[users.length-1].roomNo);
+      if(!duplicateArray.includes(temp.roomNo)){
+        duplicateArray.push(temp.roomNo);  //pushing the room to an array which contains all the rooms that exist already.
+        console.log("")
+      }
       done=22;                             //exiting the loop.
     }  else{
         users.pop();                        //taking out the user from the users array as there is no space in room and finding a new room again.
@@ -81,6 +86,7 @@ io.on("connection", socket => {
 
   socket.on("chatMessage", msg => {  //reading the message event which comes from the client.
     let index=users.findIndex(x => x.userID===socket.id);  //finding out the client's room no so that it goes to the same room no.
+    console.log(users[index].roomNo);
     socket.to(users[index].roomNo).broadcast.emit("chatMessage", msg); //pushing the message to the other client in the same room.
   });
 
@@ -89,7 +95,7 @@ io.on("connection", socket => {
     let index=users.findIndex(x => x.userID===socket.id); //finding the index of the disconnected user in the users array.
        noOfRooms=Math.floor(totalUsers/2); //updating the no of rooms after the user disconnects.
        socket.to(users[index].roomNo).broadcast.emit("chatMessage", disconnectMsg); //emitting the message to the other client that the stranger has disconnected.
-       deleteRoom(users[index].roomNo); //deleting the room since nobody is chatting in it anymore.
+        //deleting the room since nobody is chatting in it anymore.
        let indexDuplicateArray=duplicateArray.findIndex(x=>x===users[index].roomNo); //finding the index of room in the duplicateArray which was just deleted.
        duplicateArray.splice(indexDuplicateArray,1); //removing the room from the duplicateArray since the room doesn't exist anymore.
       users.splice(index,1); //removing the user from the users array.
@@ -98,5 +104,5 @@ io.on("connection", socket => {
 
 
 const port = 8020;
-http.listen(process.env.PORT||port);
+server.listen(process.env.PORT||port);
 console.log("app is working on port" + port);
