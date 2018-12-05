@@ -100,6 +100,6 @@ io.on("connection", socket => {
 });
 
 
-const port = 8020;
+const port = 3000;
 server.listen(process.env.PORT||port);
 console.log("app is working on port" + port);
