@@ -3,6 +3,8 @@ const app = express();
 const http = require('http').Server(app);
 const path = require("path");
 const io = require("socket.io")(http);
+const redisAdapter = require('socket.io-redis');
+io.adapter(redisAdapter({ host: 'localhost', port: 8020 }));
 app.use(express.static(path.join(__dirname, 'build')));
 
 const roomExist= (propertyName, inputArray) => {
@@ -68,7 +70,14 @@ io.on("connection", socket => {
   const temp={userID:socket.id,value:socket,roomNo:getRandomIntInclusive(0,noOfRooms)};
   users.push(temp);
   console.log("user chooses "+temp.roomNo);
-    if(io.sockets.adapter.rooms[temp.roomNo].length<3){
+  let myCond ;
+
+  io.of('/').adapter.clients([temp.roomNo], (err, clients) => {
+    if(clients.length<3){
+      myCond= true;
+    } else{myCond= false;} // an array containing socket ids in 'room1' and/or 'room2'
+});
+    if(myCond){
       console.log("user joins "+temp.roomNo);
       socket.join(temp.roomNo);
       done=22;}
