@@ -10,7 +10,7 @@ const socket = io();
 const styles = theme => ({
   container: {
 
-    background: "#ffffff",
+    background: "#fff7ee",
 
     position:"fixed",
     bottom:"0px",
