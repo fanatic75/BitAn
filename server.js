@@ -67,14 +67,10 @@ io.on("connection", socket => {
   for(let done=0;done<21;done++){
     const temp={userID:socket.id,roomNo:getRandomIntInclusive(0,noOfRooms)}; //user details
     users.push(temp); //pusing user details into users array
-        console.log("user chooses "+temp.roomNo);
     if(roomFullOrNot(temp,duplicateArray)===false){  //checking if the room is full or not, if full insert the user to some other room
       socket.join(temp.roomNo);
-      console.log("user enters "+temp.roomNo);
       if(!roomExist(temp,duplicateArray)){
         duplicateArray.push(temp.roomNo);  //pushing the room to an array which contains all the rooms that exist already.
-        console.log(temp.roomNo+" is new and is now added to the duplicate Array");
-        console.log(duplicateArray);
       }
       done=22;                             //exiting the loop.
     }  else{
@@ -87,7 +83,6 @@ io.on("connection", socket => {
 
   socket.on("chatMessage", msg => {  //reading the message event which comes from the client.
     let index=users.findIndex(x => x.userID===socket.id);  //finding out the client's room no so that it goes to the same room no.
-    console.log("object is at position index "+index+". "+users[index].roomNo+ "is the room number where message will be sent to.");
     socket.to(users[index].roomNo).broadcast.emit("chatMessage", msg); //pushing the message to the other client in the same room.
   });
 
@@ -101,8 +96,6 @@ io.on("connection", socket => {
     let indexDuplicateArray=duplicateArray.findIndex(x=>x===users[index].roomNo); //finding the index of room in the duplicateArray which was just deleted.
     duplicateArray.splice(indexDuplicateArray,1); //removing the room from the duplicateArray since the room doesn't exist anymore.
     users.splice(index,1); //removing the first user from the users array.
-    console.log(index+ " at position is removed.");
-    console.log(duplicateArray);
    });
 });
 
