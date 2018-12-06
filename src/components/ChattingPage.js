@@ -46,7 +46,6 @@ class ChattingPage extends React.Component {
 
     this.setState(prevState => {
       let messages = prevState.messages;
-      console.log(this.inputRef);
       const temp = { text: message, id: Date.now() }
       messages.push(temp);
       return { messages };
