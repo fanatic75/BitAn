@@ -117,7 +117,7 @@ io.on("connection", (socket: Socket) => {
 
 
 const port = 8020;
-server.listen(port);
+server.listen(process.env.PORT || port);
 console.log("app is working on port" + port);
 
 

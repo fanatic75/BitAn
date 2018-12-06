@@ -2,9 +2,9 @@
 
 # dependencies
 /app/node_modules
-/app/build
+# /app/build for heroku deployment
 /server/node_modules
-/server/build
+# /server/build  /dont ignore for heroku deployment
 /.pnp
 .pnp.js
 
@@ -12,7 +12,7 @@
 /coverage
 
 # production
-/build
+# /build
 
 # misc
 .DS_Store
