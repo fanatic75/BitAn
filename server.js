@@ -12,7 +12,7 @@ let noOfRooms=Math.floor(totalUsers/2);
 const users = [];
 const duplicateArray=[];
 const disconnectMsg="Stranger has disonnected. Please refresh the Page.";
-
+const connectedMsg="Stranger has connected. Please say Hello.";
 
 const getRandomIntInclusive = (min, max) => {
   min = Math.ceil(min);
@@ -35,6 +35,7 @@ const roomFullOrNot = (temp,duplicateArray) => {  //function for checking if bot
         return true;
       }
      else{
+       setTimeout(()=>{io.in(temp.roomNo).emit("chatMessage",connectedMsg)},8000); //emit that the second stranger has connected to the app to the first stranger.
        return false;
      }
    }else{
