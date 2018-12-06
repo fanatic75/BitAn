@@ -1,5 +1,4 @@
 import express from 'express';
-//@ts-ignore
 const app = express();
 const server = require('http').createServer(app);
 import path from "path";
@@ -12,8 +11,8 @@ const io: Server = require("socket.io")(server, {
   serveClient: false,
 });
 const buildPath = path.join(__dirname, "..", "..", "app", 'build');
-console.log(__dirname);
-console.log(buildPath);
+// console.log(__dirname);
+// console.log(buildPath);
 // console.log('\x1bc'); //clears console
 
 const indexHtmlPath = path.join(buildPath, "index.html");
@@ -40,23 +39,24 @@ io.on("connection", (socket: Socket) => {
     ">>>>>>>>>>>>>>>>>>>>>>" + ++socketConnectionNumber);
   const person = new Person(socket.id);
   people.push(person);
-  console.log("this is the person right after he was created:" + person);
+  console.log("this is the person right after he was created:");
+  console.log(person);
   console.log("this is the peoples array: " + JSON.stringify(people, null, 2) + people);
   rooms.forEach(currentRoom => {
     const space = currentRoom.checkAvailableSpace();
-    console.log("this is the space in the current room" + space)
+    // console.log("this is the space in the current room" + space)
     console.log("the person has been assigned a room?" + person.isRoomAssigned())
     if (space > 0 && !person.isRoomAssigned())
       person.joinRoom(socket, currentRoom, space);
-    console.log("this is the person" + JSON.stringify(person, null, 2) + person +
-      " who joined this room " + JSON.stringify(currentRoom, null, 2) + currentRoom);
+    console.log("this is the person"); console.log(person);
+    console.log(" who joined this room "); console.log(currentRoom);
   });
 
   if (!person.isRoomAssigned()) {
     const room = new BITRoom(uniqid.process());
     person.joinRoom(socket, room, room.checkAvailableSpace())
     rooms.push(room);
-    console.log("A new room was created room" + JSON.stringify(room, null, 2) + room)
+    console.log("A new room was created room"); console.log(room);
   }
 
 
@@ -79,11 +79,10 @@ io.on("connection", (socket: Socket) => {
   });
 
   socket.on("disconnect", () => {
-    console.log("logging the person on disconnect " + person);
+    console.log("logging the person on disconnect "); console.log(person);
     let roomIndex = 0;
     rooms.forEach((currentRoom: RoomType, index: number) => {
-      console.log("logging current room before vacating" + currentRoom +
-        JSON.stringify(currentRoom, null, 2));
+      console.log("logging current room before vacating"); console.log(currentRoom);
       if (person.isRoomAssigned()) {
         if (currentRoom.roomId === person.assignedRoomId) {
           person.vacateRoom(currentRoom);
@@ -94,8 +93,7 @@ io.on("connection", (socket: Socket) => {
       rooms.splice(roomIndex, 1);
       //todo: only one user left reconnect the other one to the room
       people = people.filter(p => person.personId !== p.personId)
-      console.log("logging current room after vacating" + currentRoom +
-        JSON.stringify(currentRoom, null, 2));
+      console.log("logging current room after vacating"); console.log(currentRoom);
     });
     console.log("no of users are " + --totalUsers);
     if (totalUsers === 0) {
@@ -105,8 +103,8 @@ io.on("connection", (socket: Socket) => {
       people = [];
     }
 
-    // console.log(rooms);
-    // console.log(people);
+    console.log(rooms);
+    console.log(people);
     socket.disconnect();
     // let index = users.findIndex(x => x.userID === socket.id);
 
