@@ -76,7 +76,7 @@ class BottomMessageBar extends React.Component {
       this.props.addStrMessage(msg);
     });
     socket.on("newChat", () => {
-      this.setState({value:"New Chat",});
+      this.setState({value:"New Chat",stateInput:true,});
     });
     socket.on("closeStrangerSocket",() => {
       socket.close();
