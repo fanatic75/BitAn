@@ -75,9 +75,13 @@ class BottomMessageBar extends React.Component {
     socket.on("chatMessage", msg => {
       this.props.addStrMessage(msg);
     });
-    socket.on("newChat", newChat => {
-      this.setState({value:newChat,});
+    socket.on("newChat", () => {
+      this.setState({value:"New Chat",});
     });
+    socket.on("closeStrangerSocket",() => {
+      socket.close();
+    });
+
 
     this.buttonToggle = this.buttonToggle.bind(this);
     this.handleChange = this.handleChange.bind(this);
@@ -146,7 +150,9 @@ class BottomMessageBar extends React.Component {
         value: "Really?",
       });
     } else if (this.state.value === "Really?") {
+
       socket.close();
+
       this.setState({
         value: "New Chat",
         stateInput:true,
@@ -157,9 +163,9 @@ class BottomMessageBar extends React.Component {
         firstMessage: false,
         stateInput:false,
       });
-      socket.close();
-      socket.open();
       this.props.clearScreen();
+      socket.open();
+
     }
   }
 

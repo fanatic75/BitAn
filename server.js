@@ -38,7 +38,7 @@ const roomFullOrNot = (temp,duplicateArray) => {  //function for checking if bot
       }
      else{
        console.log("there's only one person in the room "+temp.roomNo);
-       setTimeout(()=>{io.in(temp.roomNo).emit("chatMessage",connectedMsg)},1000); //emit that the second stranger has connected to the app to the first stranger.
+       setTimeout(()=>{io.in(temp.roomNo).emit("chatMessage",connectedMsg)},100); //emit that the second stranger has connected to the app to the first stranger.
        return false;
      }
    }else{
@@ -53,9 +53,11 @@ const roomFullOrNot = (temp,duplicateArray) => {  //function for checking if bot
 const deleteRoom = (someRoom) => { //function for deleting the room and taking out all the users from it.
   console.log("both of the clients will be exiting this room which is known by "+someRoom);
   io.of('/').in(someRoom).clients(function(error, clients) {
+      console.log("length of the room is "+clients.length);
         clients.forEach(function (socket_id) {
             io.sockets.sockets[socket_id].leave(someRoom);
         });
+        console.log("length of the room is "+clients.length);
     });
 
 };
@@ -137,9 +139,9 @@ io.on("connection", socket => {
         console.log("updated user list is "+users.map(x => x.userID).join(","));
         const strangerIndex=users.findIndex((x) => x.userID!==socket.id&&x.roomNo===roomNo);//get the index of the stranger in the users array
         console.log(strangerIndex);
-        io.in(roomNo).emit("newChat","New Chat");
+        socket.to(roomNo).emit("newChat");
         if(strangerIndex!==(-1)){
-
+          socket.to(roomNo).emit("closeStrangerSocket");
           console.log("removing the stranger from the users array.");
           console.log("user id is "+users[strangerIndex].userID+"was in room "+users[strangerIndex].roomNo);
           users.splice(strangerIndex,1);
