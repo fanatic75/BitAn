@@ -139,8 +139,8 @@ io.on("connection", socket => {
         console.log("updated user list is "+users.map(x => x.userID).join(","));
         const strangerIndex=users.findIndex((x) => x.userID!==socket.id&&x.roomNo===roomNo);//get the index of the stranger in the users array
         console.log(strangerIndex);
-        socket.to(roomNo).emit("newChat");
         if(strangerIndex!==(-1)){
+          socket.to(roomNo).emit("newChat");
           socket.to(roomNo).emit("closeStrangerSocket");
           console.log("removing the stranger from the users array.");
           console.log("user id is "+users[strangerIndex].userID+"was in room "+users[strangerIndex].roomNo);
