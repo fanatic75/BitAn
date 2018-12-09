@@ -7,8 +7,7 @@
 
 /.vscode
 # mapfiles
-/build/static/css/*.map
-/build/static/js/*.map
+
 
 # testing
 /coverage
