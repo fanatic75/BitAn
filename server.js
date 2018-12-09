@@ -11,7 +11,7 @@ let userID=0;
 let noOfRooms=Math.floor((totalUsers-1)/2);
 const users = [];
 const duplicateArray=[];
-const disconnectMsg="Stranger has disonnected. Please refresh the Page.";
+const disconnectMsg="Stranger has disonnected. Please start a New Chat.";
 const connectedMsg="Stranger has connected. Please say Hello.";
 
 const getRandomIntInclusive = (min, max) => {
@@ -38,10 +38,11 @@ const roomFullOrNot = (temp,duplicateArray) => {  //function for checking if bot
       }
      else{
        console.log("there's only one person in the room "+temp.roomNo);
-       setTimeout(()=>{io.in(temp.roomNo).emit("chatMessage",connectedMsg)},8000); //emit that the second stranger has connected to the app to the first stranger.
+       setTimeout(()=>{io.in(temp.roomNo).emit("chatMessage",connectedMsg)},1000); //emit that the second stranger has connected to the app to the first stranger.
        return false;
      }
    }else{
+     console.log("first user for the room has just entered,room No is "+temp.roomNo);
      console.log("room is created now with ID "+temp.roomNo);
       return false;
     }
@@ -71,7 +72,8 @@ io.on("connection", socket => {
   console.log("a user has connected. "+  ++totalUsers);//added the usesr to total number of users.
   noOfRooms=Math.floor((totalUsers-1)/2);//updaing the no of rooms when a new user is added.
   console.log("no of rooms are "+noOfRooms);
-  for(let done=0;done<21;done++){
+  let done=0;
+  while(!done){
     const temp={userID:socket.id,roomNo:getRandomIntInclusive(0,noOfRooms)}; //user details
     console.log("user is given "+temp.userID+" and room No is "+temp.roomNo);
     users.push(temp); //pusing user details into users array
@@ -84,7 +86,7 @@ io.on("connection", socket => {
         console.log("a room which is called "+temp.roomNo+" has been created and is put in duplicateArray");
         console.log("duplicateArray contains "+duplicateArray);
       }
-      done=22;                             //exiting the loop.
+      done=1;                             //exiting the loop.
     }  else{
         users.pop();                       //taking out the user from the users array as there is no space in room and finding a new room again.
         console.log("user with id "+temp.userID+" couldn't enter the room since it's full, room No was "+temp.roomNo);
@@ -115,7 +117,7 @@ io.on("connection", socket => {
       roomNo=users[index].roomNo;//room of the first user
       console.log("a client has disconnected with socket id "+socket.id+" and user ID" +users[index].userID);
       console.log("broadcasting the disconnect message to the stranger since the first client has left the room.room no is "+users[index].roomNo);
-      socket.to(users[index].roomNo).broadcast.emit("chatMessage", disconnectMsg); //emitting the message to the other client that the stranger has disconnected.
+      socket.to(users[index].roomNo).emit("chatMessage", disconnectMsg); //emitting the message to the other client that the stranger has disconnected.
 
       console.log("room list contains "+duplicateArray);
       const indexDuplicateArray=duplicateArray.findIndex(x=>x===roomNo); //finding the index of room in the duplicateArray which was just deleted.
@@ -135,6 +137,7 @@ io.on("connection", socket => {
         console.log("updated user list is "+users.map(x => x.userID).join(","));
         const strangerIndex=users.findIndex((x) => x.userID!==socket.id&&x.roomNo===roomNo);//get the index of the stranger in the users array
         console.log(strangerIndex);
+        io.in(roomNo).emit("newChat","New Chat");
         if(strangerIndex!==(-1)){
 
           console.log("removing the stranger from the users array.");
@@ -144,6 +147,7 @@ io.on("connection", socket => {
           console.log("a client has disonnected and now total no of users are "+(--totalUsers)); //remove the user from total users.
         }else{console.log("there was no stranger in the room and only one user");}
         noOfRooms=Math.floor((totalUsers-1)/2); //updating the no of rooms after the user disconnects.
+
       }
     else{console.log("the user was already deleted from the users list.")}
   });

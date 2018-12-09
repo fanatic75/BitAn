@@ -59,6 +59,11 @@ class ChattingPage extends React.Component {
     }, this.setFocusOnMessage);
   }
 
+clearScreen = () =>{
+    this.setState({
+      messages:[],
+    });
+}
 
 
 
@@ -76,7 +81,7 @@ class ChattingPage extends React.Component {
           <MenuAppBar />
 
           <MessageList messageRef={this.messageRef}  messages={this.state.messages}  addMessageFunc={this.addMessage} addStrMessage={this.addStrMessage} />
-          <BottomMessageBar myRefProp={this.createInputRef}  addMessageFunc={this.addMessage} addStrMessage={this.addStrMessage}  />
+          <BottomMessageBar myRefProp={this.createInputRef}  addMessageFunc={this.addMessage}  clearScreen={this.clearScreen} addStrMessage={this.addStrMessage}  />
 
 
         </React.Fragment >

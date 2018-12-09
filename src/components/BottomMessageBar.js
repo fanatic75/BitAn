@@ -6,7 +6,7 @@ import Icon from '@material-ui/core/Icon';
 import TextField from '@material-ui/core/TextField';
 import { MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles';
 import io from 'socket.io-client';
-const socket = io();
+const socket = io.connect({autoConnect: false});
 const styles = theme => ({
   container: {
 
@@ -70,9 +70,13 @@ class BottomMessageBar extends React.Component {
       value: "STOP",
       message: '',
       firstMessage: false,
+      stateInput:false,
     }
     socket.on("chatMessage", msg => {
       this.props.addStrMessage(msg);
+    });
+    socket.on("newChat", newChat => {
+      this.setState({value:newChat,});
     });
 
     this.buttonToggle = this.buttonToggle.bind(this);
@@ -82,6 +86,9 @@ class BottomMessageBar extends React.Component {
 
   }
 
+  componentDidMount() {
+    socket.open();
+  }
 
   handleSubmit(evtOrMessage) {
     if (evtOrMessage.target) {
@@ -139,14 +146,20 @@ class BottomMessageBar extends React.Component {
         value: "Really?",
       });
     } else if (this.state.value === "Really?") {
+      socket.close();
       this.setState({
         value: "New Chat",
+        stateInput:true,
       });
     } else {
       this.setState({
         value: "STOP",
         firstMessage: false,
-      })
+        stateInput:false,
+      });
+      socket.close();
+      socket.open();
+      this.props.clearScreen();
     }
   }
 
@@ -176,7 +189,7 @@ class BottomMessageBar extends React.Component {
 
           <TextField
             inputRef={this.props.myRefProp}
-
+            disabled={this.state.stateInput}
             id="outlined-required"
             label={this.state.firstMessage ? "Type your message" : "Say hello to stranger"}
             multiline
@@ -211,7 +224,7 @@ BottomMessageBar.propTypes = {
   classes: PropTypes.object.isRequired,
   addMessageFunc: PropTypes.func.isRequired,
   addStrMessage:PropTypes.func.isRequired,
-
+  clearScreen:PropTypes.func.isRequired,
 };
 
 export default withStyles(styles)(BottomMessageBar);

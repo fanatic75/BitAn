@@ -1,4 +1,0 @@
-This is a Brave Payments publisher verification file.
-
-Domain: bitan.herokuapp.com
-Token: 6d1fb26ae930efaa8fc870241853d9206bccb094a24924df89d2f7d2b1e1cfbb
