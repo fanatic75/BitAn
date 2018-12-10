@@ -9,8 +9,7 @@
 # mapfiles
 
 # mapfiles
-/build/static/js/*.map
-/build/static/css/*.map
+
 # testing
 /coverage
 
