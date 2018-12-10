@@ -8,7 +8,7 @@ import Toolbar from "@material-ui/core/Toolbar";
 import Icon from '@material-ui/core/Icon';
 import { MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles';
 import io from 'socket.io-client';
-const socket = io.connect({autoConnect: false});
+const socket = io.connect({autoConnect: false,});
 const styles = theme => ({
   appBar: {
     top: "auto",
@@ -99,6 +99,15 @@ class BottomMessageBar extends React.Component {
     });
     socket.on("closeStrangerSocket",() => {
       socket.close();
+    });
+    socket.on('reconnect_attempt', (attemptNumber) => {
+      this.props.addMessageFunc("You have been disconnected because the tab was Idle.");
+      socket.close();
+      this.setState({
+        value: "New Chat",
+        stateInput:true,
+        stateButton:true,
+      });
     });
 
 
