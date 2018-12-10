@@ -7,8 +7,8 @@ const styles = theme => ({
   root: {
     minWidth:"100vw",
     position:"fixed",
-    top:"8vh",
-    maxHeight:"73%",
+    top:"9%",
+    maxHeight:"75%",
     overflow:"scroll",
     overflowX:"hidden",
     "&::-webkit-scrollbar":{
@@ -21,7 +21,7 @@ const styles = theme => ({
   myMessagesCard: {
     minWidth: "50vw",
     maxWidth: "50vw",
-    marginTop: "20px",
+    marginTop: "10px",
 
     ...theme.mixins.gutters(),
     paddingTop: ".2px",
@@ -35,7 +35,7 @@ const styles = theme => ({
   strMessagesCard: {
     minWidth: "50vw",
     maxWidth: "50vw",
-    marginTop: "20px",
+    marginTop: "10px",
 
     ...theme.mixins.gutters(),
     paddingTop: ".2px",
@@ -47,12 +47,12 @@ const styles = theme => ({
 
   message: {
     color: "white",
-    fontSize: "15px",
+    fontSize: "13px",
     outline:"none",
   },
   strMessage: {
     color: "black",
-    fontSize: "17px",
+    fontSize: "13px",
     outline:"none",
   },
   noOutline:{

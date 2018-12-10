@@ -2,48 +2,66 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import Button from '@material-ui/core/Button';
 import { withStyles } from '@material-ui/core/styles';
+import AppBar from "@material-ui/core/AppBar";
+import CssBaseline from "@material-ui/core/CssBaseline";
+import Toolbar from "@material-ui/core/Toolbar";
 import Icon from '@material-ui/core/Icon';
-import TextField from '@material-ui/core/TextField';
 import { MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles';
 import io from 'socket.io-client';
 const socket = io.connect({autoConnect: false});
 const styles = theme => ({
-  container: {
-
-    background: "#fff7ee",
-
-    position:"fixed",
-    bottom:"0px",
-
-    display: 'flex',
-    flexDirection: "row",
-    justifyContent: "space-between",
-    alignItems: "flex-end",
-    width: "99.99%",
-
+  appBar: {
+    top: "auto",
+    bottom: 0,
+    background:"rgb(255, 247, 238)",
+  },
+  toolbar: {
+    alignItems:"flex-end",
   },
   textField: {
-    margin: theme.spacing.unit,
-    marginBottom: "2px",
-    width: "70%",
-
-
-
-
+    marginBottom: "6px",
+    width:"100%",
+    borderRadius: "25px",
+    borderColor:"#336242",
+    border:"2px",
+    borderStyle:"solid",
+    height: "45px",
+    outline:"none",
+    resize:'none',
+    overflow:"auto",
+    "&::-webkit-scrollbar":{
+      background:"transparent",
+    },
+    "&::-webkit-input-placeholder":{
+      fontFamily:"monospace",
+      color: "grey",
+      fontSize:"11px",
+    },
+    paddingBottom:"20px",
+    paddingTop:"10px",
+    paddingRight:"20px",
+    paddingLeft:"20px",
   },
   buttonSend: {
-    marginBottom: "2px",
-    marginRight: theme.spacing.unit,
+    marginBottom: "6px",
+    marginLeft:"4px",
+    marginRight:"-10px",
     color: "#ffffff ",
-    width: "50px",
-
+    minHeight:"9px",
+    minWidth:"31px",
+    width:"60px",
+    height:"45px",
   },
   buttonChat: {
+    marginBottom:"10px",
     background: "#336242",
-    margin: theme.spacing.unit,
     color:"#ffffff",
+    marginRight:"4px",
+    marginLeft:"-10px",
   },
   rightIcon:{
+    marginLeft:"5px",
+    marginBottom:"3px",
     transform:"rotate(333deg)",
   }
 
@@ -71,12 +89,13 @@ class BottomMessageBar extends React.Component {
       message: '',
       firstMessage: false,
       stateInput:false,
+      stateButton:false,
     }
     socket.on("chatMessage", msg => {
       this.props.addStrMessage(msg);
     });
     socket.on("newChat", () => {
-      this.setState({value:"New Chat",stateInput:true,});
+      this.setState({value:"New Chat",stateInput:true,stateButton:true,});
     });
     socket.on("closeStrangerSocket",() => {
       socket.close();
@@ -156,12 +175,14 @@ class BottomMessageBar extends React.Component {
       this.setState({
         value: "New Chat",
         stateInput:true,
+        stateButton:true,
       });
     } else {
       this.setState({
         value: "STOP",
         firstMessage: false,
         stateInput:false,
+        stateButton:false,
       });
       this.props.clearScreen();
       socket.open();
@@ -178,13 +199,15 @@ class BottomMessageBar extends React.Component {
 
     return (
       <MuiThemeProvider theme={theme}>
+      <React.Fragment>
+      <CssBaseline />
 
         <form
-          className={classes.container}
           noValidate
           autoComplete="off"
           onSubmit={this.handleSubmit}>
-
+          <AppBar position="fixed" color="primary" className={classes.appBar}>
+            <Toolbar className={classes.toolbar}>
           <Button onClick={this.buttonToggle}
             variant="contained"
             color="primary"
@@ -193,21 +216,18 @@ class BottomMessageBar extends React.Component {
             {this.state.value}
           </Button>
 
-          <TextField
-            inputRef={this.props.myRefProp}
-            disabled={this.state.stateInput}
-            id="outlined-required"
-            label={this.state.firstMessage ? "Type your message" : "Say hello to stranger"}
-            multiline
-            onChange={this.handleChange}
-            rowsMax="4"
-            value={this.state.message}
-            className={classes.textField}
-            margin="dense"
-            variant="outlined"
-            onKeyDown={this.sendOnEnter}
-          />
 
+          <textarea
+          type="text"
+           cols="10"
+           rows="1"
+           placeholder={this.state.firstMessage ? "Type your message" : "Say hello to stranger"}
+           className={classes.textField}
+           disabled={this.state.stateInput}
+           value={this.state.message}
+           onChange={this.handleChange}
+           onKeyDown={this.sendOnEnter}
+          />
           <Button
             variant="fab"
             type="submit"
@@ -217,9 +237,12 @@ class BottomMessageBar extends React.Component {
             className={classes.buttonSend}>
             <Icon className={classes.rightIcon}>send</Icon>
           </Button>
+
+          </Toolbar>
+       </AppBar>
         </form>
 
-
+        </React.Fragment>
       </MuiThemeProvider>
     );
   }

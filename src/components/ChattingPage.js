@@ -71,7 +71,7 @@ clearScreen = () =>{
 
 
 
-    if (this.props.visibility) document.body.style.backgroundColor = "#fff7ee";
+    if (this.props.visibility) document.body.style.backgroundColor = "rgb(255, 247, 238)";
 
     if (this.props.visibility) {
       return (
