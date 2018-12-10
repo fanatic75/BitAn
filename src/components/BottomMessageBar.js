@@ -13,7 +13,7 @@ const styles = theme => ({
   appBar: {
     top: "auto",
     bottom: 0,
-    background:"rgb(255, 247, 238)",
+    background:"#000000",
   },
   toolbar: {
     alignItems:"flex-end",
@@ -22,7 +22,7 @@ const styles = theme => ({
     marginBottom: "6px",
     width:"100%",
     borderRadius: "25px",
-    borderColor:"#336242",
+    borderColor:"#ffffff",
     border:"2px",
     borderStyle:"solid",
     height: "45px",
@@ -46,7 +46,7 @@ const styles = theme => ({
     marginBottom: "6px",
     marginLeft:"4px",
     marginRight:"-10px",
-    color: "#ffffff ",
+    color: "#d5b138",
     minHeight:"9px",
     minWidth:"31px",
     width:"60px",
@@ -54,8 +54,8 @@ const styles = theme => ({
   },
   buttonChat: {
     marginBottom:"10px",
-    background: "#336242",
-    color:"#ffffff",
+    background: "#000000",
+    color:"#d5b138",
     marginRight:"4px",
     marginLeft:"-10px",
   },
@@ -69,7 +69,7 @@ const styles = theme => ({
 const theme = createMuiTheme({
   palette: {
     primary: {
-      main: "#336242",
+      main: "#000000",
     },
     secondary: {
       main: "#ffffff",
