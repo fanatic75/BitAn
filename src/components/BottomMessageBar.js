@@ -19,7 +19,8 @@ const styles = theme => ({
     alignItems:"flex-end",
   },
   textField: {
-    marginBottom: "6px",
+    boxShadow:"0.5px 0.5px 8px 3px #888888",
+    margin:"auto",
     width:"100%",
     borderRadius: "25px",
     borderColor:"#ffffff",
