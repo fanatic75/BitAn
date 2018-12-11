@@ -22,13 +22,14 @@ const styles = theme => ({
     minWidth: "50vw",
     maxWidth: "50vw",
     marginTop: "10px",
-
+    display:"flex",
+    alignItems:"center",
     ...theme.mixins.gutters(),
     paddingTop: ".2px",
     paddingBottom: ".2px",
 
     marginLeft: "38vw",
-    wordWrap: "break-word",
+    wordBreak: "break-word",
     background: "#000000",
 
   },
@@ -36,11 +37,12 @@ const styles = theme => ({
     minWidth: "50vw",
     maxWidth: "50vw",
     marginTop: "10px",
-
+    display:"flex",
+    alignItems:"center",
     ...theme.mixins.gutters(),
     paddingTop: ".2px",
     paddingBottom: ".2px",
-    wordWrap: "break-word",
+    wordBreak: "break-word",
     background: "#336242",
 
   },
