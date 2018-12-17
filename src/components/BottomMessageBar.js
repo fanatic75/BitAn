@@ -9,6 +9,7 @@ import Icon from '@material-ui/core/Icon';
 import { MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles';
 import io from 'socket.io-client';
 const socket = io.connect({autoConnect: false,});
+const disconnectMsg="You have disconnected the chat. Please start a New Chat to start chatting with a random Stranger.";
 const styles = theme => ({
   appBar: {
     top: "auto",
@@ -119,6 +120,8 @@ class BottomMessageBar extends React.Component {
 
   }
 
+
+
   componentDidMount() {
     socket.open();
   }
@@ -187,6 +190,7 @@ class BottomMessageBar extends React.Component {
         stateInput:true,
         stateButton:true,
       });
+      this.props.addMessageFunc(disconnectMsg);
     } else {
       this.setState({
         value: "STOP",
