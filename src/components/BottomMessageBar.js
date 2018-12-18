@@ -45,9 +45,10 @@ const styles = theme => ({
     paddingLeft:"20px",
   },
   buttonSend: {
-    marginBottom: "6px",
-    marginLeft:"4px",
-    marginRight:"-10px",
+    marginTop:"auto",
+    marginBottom: "auto",
+    marginLeft:"9px",
+    marginRight:"-1.3%",
     color: "#d5b138",
     minHeight:"9px",
     minWidth:"31px",
