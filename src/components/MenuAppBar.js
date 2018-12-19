@@ -11,6 +11,7 @@ import { MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles';
 import MoreIcon from '@material-ui/icons/MoreVert';
 import ConfirmationDialog from './ConfirmationDialog';
 import DonateDialog from "./DonateDialog";
+import AboutUsDialog from "./AboutUsDialog";
 const styles = {
   root: {
     flexGrow: 1,
@@ -47,6 +48,7 @@ class MenuAppBar extends React.Component {
     anchorEl: null,
     dialogOpen:false,
     donateOpen:false,
+    aboutUs:false,
   };
 
 
@@ -73,6 +75,15 @@ class MenuAppBar extends React.Component {
     this.setState(
       {
         donateOpen:!this.state.donateOpen,
+        anchorEl: null,
+
+      });
+
+  };
+  aboutUsToggle = () =>{
+    this.setState(
+      {
+        aboutUs:!this.state.aboutUs,
         anchorEl: null,
 
       });
@@ -128,10 +139,11 @@ class MenuAppBar extends React.Component {
                   </MenuItem>
 
                   <MenuItem onClick={this.donateToggle}>Donate</MenuItem>
-                  <MenuItem onClick={this.donateToggle}>AboutUS</MenuItem>
+                  <MenuItem onClick={this.aboutUsToggle}>AboutUS</MenuItem>
                 </Menu>
                 <ConfirmationDialog  dialogToggle={this.dialogToggle} dialogOpen={this.state.dialogOpen}  />
                 <DonateDialog  donateToggle={this.donateToggle} donateOpen={this.state.donateOpen} />
+                <AboutUsDialog  aboutUsToggle={this.aboutUsToggle} aboutUs={this.state.aboutUs} />
               </div>
             )}
           </Toolbar>
