@@ -6,26 +6,26 @@ import Typography from '@material-ui/core/Typography';
 const styles = {
   root: {
     width: "100%",
-    background:"black",
-    borderRadius:"10px",
-    position:"absolute",
-    bottom:"2px",
-    
+    background: "black",
+    borderRadius: "10px",
+    position: "absolute",
+    bottom: "2px",
+
   },
-  footer:{
-    color:"#d5b138",
-    margin:"auto"
+  footer: {
+    color: "#d5b138",
+    margin: "auto"
   }
 };
 
 class footer extends React.Component {
 
 
-  
+
 
   render() {
     const { classes } = this.props;
-   
+
 
     return (
       <BottomNavigation

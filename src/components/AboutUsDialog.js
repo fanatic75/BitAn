@@ -9,28 +9,28 @@ import ArrowBackIos from "@material-ui/icons/ArrowBackIos";
 import Slide from "@material-ui/core/Slide";
 import Footer from "./Footer"
 const styles = {
-   
-    ArrowBackIos:{
-        width: "10%",
-        position: "fixed",
-         top: "47px",
-         color:"#d5b138",
-    },
-    Heading:{ 
-        textAlign:"center",
-        marginTop:"21px",
-        color:"#d5b138",
-    }
+
+  ArrowBackIos: {
+    width: "10%",
+    position: "fixed",
+    top: "47px",
+    color: "#d5b138",
+  },
+  Heading: {
+    textAlign: "center",
+    marginTop: "21px",
+    color: "#d5b138",
+  }
 };
 const theme = createMuiTheme({
-    overrides: {
-        MuiPaper: { // Name of the component ⚛️ / style sheet
-          root: { // Name of the rule
-            backgroundColor: '#000', // Some CSS
-          },
-        },
+  overrides: {
+    MuiPaper: { // Name of the component ⚛️ / style sheet
+      root: { // Name of the rule
+        backgroundColor: '#000', // Some CSS
       },
-  });
+    },
+  },
+});
 
 function Transition(props) {
   return <Slide direction="up" {...props} />;
@@ -41,27 +41,27 @@ class AboutUsDialog extends React.Component {
     const { classes } = this.props;
     return (
       <div>
-          <MuiThemeProvider theme={theme}>
-        <Dialog
-          fullScreen
-          open={this.props.aboutUs}
-          TransitionComponent={Transition}
-          
-        >
-          <IconButton
-               
-                onClick={this.props.aboutUsToggle}
-                aria-label="Close"
-                className={classes.ArrowBackIos}
-              >
-                <ArrowBackIos />
-              </IconButton>
-              <Typography className={classes.Heading} variant="h3" gutterBottom>
-                About US
+        <MuiThemeProvider theme={theme}>
+          <Dialog
+            fullScreen
+            open={this.props.aboutUs}
+            TransitionComponent={Transition}
+
+          >
+            <IconButton
+
+              onClick={this.props.aboutUsToggle}
+              aria-label="Close"
+              className={classes.ArrowBackIos}
+            >
+              <ArrowBackIos />
+            </IconButton>
+            <Typography className={classes.Heading} variant="h3" gutterBottom>
+              About US
             </Typography>
-          
-          <Footer />
-        </Dialog>
+
+            <Footer />
+          </Dialog>
         </MuiThemeProvider>
       </div>
     );

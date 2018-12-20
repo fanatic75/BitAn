@@ -18,23 +18,23 @@ const styles = {
   },
   grow: {
     flexGrow: 1,
-    marginLeft:"50px"
+    marginLeft: "50px"
   },
-  appBarPosition:{
-    position:"fixed",
-    top:"0px",
+  appBarPosition: {
+    position: "fixed",
+    top: "0px",
 
   },
 
 };
-const theme= createMuiTheme({
+const theme = createMuiTheme({
   palette: {
     primary: {
-      main:"#000000"
+      main: "#000000"
     },
     secondary: {
-      main:"#d5b138",
-      custom:"#ff0000"
+      main: "#d5b138",
+      custom: "#ff0000"
     },
   },
   typography: {
@@ -46,9 +46,9 @@ class MenuAppBar extends React.Component {
   state = {
     auth: true,
     anchorEl: null,
-    dialogOpen:false,
-    donateOpen:false,
-    aboutUs:false,
+    dialogOpen: false,
+    donateOpen: false,
+    aboutUs: false,
   };
 
 
@@ -62,28 +62,28 @@ class MenuAppBar extends React.Component {
   handleClose = () => {
     this.setState({ anchorEl: null });
   };
-  dialogToggle = () =>{
+  dialogToggle = () => {
     this.setState(
       {
-        dialogOpen:!this.state.dialogOpen,
+        dialogOpen: !this.state.dialogOpen,
         anchorEl: null,
 
       });
 
   };
-  donateToggle = () =>{
+  donateToggle = () => {
     this.setState(
       {
-        donateOpen:!this.state.donateOpen,
+        donateOpen: !this.state.donateOpen,
         anchorEl: null,
 
       });
 
   };
-  aboutUsToggle = () =>{
+  aboutUsToggle = () => {
     this.setState(
       {
-        aboutUs:!this.state.aboutUs,
+        aboutUs: !this.state.aboutUs,
         anchorEl: null,
 
       });
@@ -100,55 +100,55 @@ class MenuAppBar extends React.Component {
       <div className={classes.root}>
 
         <MuiThemeProvider theme={theme}>
-        <AppBar className={classes.appBarPosition}  color="primary">
+          <AppBar className={classes.appBarPosition} color="primary">
 
-          <Toolbar>
-            <Typography   variant="h4" color="secondary" align="center" className={classes.grow}>
-              BIT Chat
+            <Toolbar>
+              <Typography variant="h4" color="secondary" align="center" className={classes.grow}>
+                BIT Chat
             </Typography>
-            {auth && (
-              <div>
-                <IconButton
-                  aria-owns={open ? 'menu-appbar' : undefined}
-                  aria-haspopup="true"
-                  onClick={this.handleMenu}
-                  color="secondary"
+              {auth && (
+                <div>
+                  <IconButton
+                    aria-owns={open ? 'menu-appbar' : undefined}
+                    aria-haspopup="true"
+                    onClick={this.handleMenu}
+                    color="secondary"
 
-                >
-                  <MoreIcon />
-                </IconButton>
+                  >
+                    <MoreIcon />
+                  </IconButton>
                   <Menu
 
-                  id="menu-appbar"
-                  anchorEl={anchorEl}
-                  anchorOrigin={{
-                    vertical: 'top',
-                    horizontal: 'right',
-                  }}
-                  transformOrigin={{
-                    vertical: 'top',
-                    horizontal: 'right',
-                  }}
-                  open={open}
-                  onClose={this.handleClose}
+                    id="menu-appbar"
+                    anchorEl={anchorEl}
+                    anchorOrigin={{
+                      vertical: 'top',
+                      horizontal: 'right',
+                    }}
+                    transformOrigin={{
+                      vertical: 'top',
+                      horizontal: 'right',
+                    }}
+                    open={open}
+                    onClose={this.handleClose}
 
-                >
-                  <MenuItem onClick={this.dialogToggle}>
+                  >
+                    <MenuItem onClick={this.dialogToggle}>
 
-                    Sexual Preference
+                      Sexual Preference
                   </MenuItem>
 
-                  <MenuItem onClick={this.donateToggle}>Donate</MenuItem>
-                  <MenuItem onClick={this.aboutUsToggle}>AboutUS</MenuItem>
-                </Menu>
-                <ConfirmationDialog  dialogToggle={this.dialogToggle} dialogOpen={this.state.dialogOpen}  />
-                <DonateDialog  donateToggle={this.donateToggle} donateOpen={this.state.donateOpen} />
-                <AboutUsDialog  aboutUsToggle={this.aboutUsToggle} aboutUs={this.state.aboutUs} />
-              </div>
-            )}
-          </Toolbar>
+                    <MenuItem onClick={this.donateToggle}>Donate</MenuItem>
+                    <MenuItem onClick={this.aboutUsToggle}>AboutUS</MenuItem>
+                  </Menu>
+                  <ConfirmationDialog dialogToggle={this.dialogToggle} dialogOpen={this.state.dialogOpen} />
+                  <DonateDialog donateToggle={this.donateToggle} donateOpen={this.state.donateOpen} />
+                  <AboutUsDialog aboutUsToggle={this.aboutUsToggle} aboutUs={this.state.aboutUs} />
+                </div>
+              )}
+            </Toolbar>
 
-        </AppBar>
+          </AppBar>
         </MuiThemeProvider>
       </div>
     );
