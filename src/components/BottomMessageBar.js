@@ -113,7 +113,7 @@ class BottomMessageBar extends React.Component {
       });
     });
 
-
+    this.messageField=React.createRef();
     this.buttonToggle = this.buttonToggle.bind(this);
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
@@ -136,7 +136,7 @@ class BottomMessageBar extends React.Component {
 
       });
       if (this.state.message.trim().length >0) {
-
+        this.messageField.current.focus();
         this.props.addMessageFunc(this.state.message);
         socket.emit("chatMessage", this.state.message);
 
@@ -147,10 +147,9 @@ class BottomMessageBar extends React.Component {
       //Do something with target
     }
     else  {
-
+      this.messageField.current.focus();
       this.props.addMessageFunc(evtOrMessage);
       socket.emit("chatMessage", evtOrMessage);
-
       this.setState({
         message: '',
         firstMessage: true,
@@ -236,6 +235,7 @@ class BottomMessageBar extends React.Component {
           type="text"
            cols="10"
            rows="1"
+           ref={this.messageField}
            placeholder={this.state.firstMessage ? "Type your message" : "Say hello to stranger"}
            className={classes.textField}
            disabled={this.state.stateInput}

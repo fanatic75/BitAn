@@ -4,10 +4,7 @@ const server = require('http').createServer(app);
 const path = require("path");
 const io = require("socket.io").listen(server);
 app.use(express.static(path.join(__dirname, 'build')));
-
-let counter=0;
 let totalUsers=0;
-let userID=0;
 let noOfRooms=Math.floor((totalUsers-1)/2);
 const users = [];
 const duplicateArray=[];
@@ -114,9 +111,9 @@ io.on("connection", socket => {
 
 
     console.log(index);
-    if(index!==-1){
+    if(index>=0){
       console.log("a client has disonnected and now total no of users are "+(--totalUsers)); //remove the user from total users.
-      roomNo=users[index].roomNo;//room of the first user
+      let roomNo=users[index].roomNo;//room of the first user
       console.log("a client has disconnected with socket id "+socket.id+" and user ID" +users[index].userID);
       console.log("broadcasting the disconnect message to the stranger since the first client has left the room.room no is "+users[index].roomNo);
       socket.to(users[index].roomNo).emit("chatMessage", disconnectMsg); //emitting the message to the other client that the stranger has disconnected.
@@ -139,7 +136,7 @@ io.on("connection", socket => {
         console.log("updated user list is "+users.map(x => x.userID).join(","));
         const strangerIndex=users.findIndex((x) => x.userID!==socket.id&&x.roomNo===roomNo);//get the index of the stranger in the users array
         console.log(strangerIndex);
-        if(strangerIndex!==(-1)){
+        if(strangerIndex>=0){
           socket.to(roomNo).emit("newChat");
           socket.to(roomNo).emit("closeStrangerSocket");
           console.log("removing the stranger from the users array.");
