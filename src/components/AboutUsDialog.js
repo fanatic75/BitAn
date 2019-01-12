@@ -7,7 +7,8 @@ import IconButton from "@material-ui/core/IconButton";
 import Typography from "@material-ui/core/Typography";
 import ArrowBackIos from "@material-ui/icons/ArrowBackIos";
 import Slide from "@material-ui/core/Slide";
-import Footer from "./Footer"
+import Footer from "./Footer";
+import AboutUsAnimation from "./AboutUsAnimation";
 const styles = {
 
   ArrowBackIos: {
@@ -59,7 +60,7 @@ class AboutUsDialog extends React.Component {
             <Typography className={classes.Heading} variant="h3" gutterBottom>
               About US
             </Typography>
-
+            <AboutUsAnimation  />
             <Footer />
           </Dialog>
         </MuiThemeProvider>
