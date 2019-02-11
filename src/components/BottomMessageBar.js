@@ -195,7 +195,7 @@ class BottomMessageBar extends React.Component {
       this.setState({
         value: "STOP",
         firstMessage: false,
-        stateInput: false,
+        stateInput: true,
         stateButton: false,
       });
       this.props.clearScreen();
