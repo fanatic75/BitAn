@@ -94,11 +94,14 @@ class BottomMessageBar extends React.Component {
       value: "STOP",
       message: '',
       firstMessage: false,
-      stateInput: false,
+      stateInput: true,
       stateButton: false,
     }
     socket.on("chatMessage", msg => {
       this.props.addStrMessage(msg);
+      this.setState({
+        stateInput:false,
+      });
     });
     socket.on("newChat", () => {
       this.setState({ value: "New Chat", stateInput: true, stateButton: true, });
