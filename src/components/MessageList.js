@@ -103,7 +103,7 @@ class MessageList extends React.Component {
       return(
         <div className={classes.root} elevation={1}>
           <Paper className={classes.strMessagesCard}>
-            <p> Looking for a random stranger. Please Wait.</p>
+            <p className={classes.strMessage}> Looking for a random stranger. Please Wait.</p>
           </Paper>
         </div>
       );
