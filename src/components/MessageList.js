@@ -27,7 +27,6 @@ const styles = theme => ({
     ...theme.mixins.gutters(),
     paddingTop: ".2px",
     paddingBottom: ".2px",
-
     marginLeft: "38vw",
     wordBreak: "break-word",
     background: "#000000",
