@@ -55,6 +55,9 @@ export function register(config) {
 }
 
 function registerValidSW(swUrl, config) {
+  window.addEventListener('fetch', function(event) {
+    /** An empty fetch handler! */
+  });
   navigator.serviceWorker
     .register(swUrl)
     .then(registration => {
