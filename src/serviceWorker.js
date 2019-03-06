@@ -30,10 +30,11 @@ export function register(config) {
       // serve assets; see https://github.com/facebook/create-react-app/issues/2374
       return;
     }
-
     window.addEventListener('load', () => {
       const swUrl = `${process.env.PUBLIC_URL}/service-worker.js`;
-
+      window.addEventListener('fetch', function(event) {
+        /** An empty fetch handler! */
+      });
       if (isLocalhost) {
         // This is running on localhost. Let's check if a service worker still exists or not.
         checkValidServiceWorker(swUrl, config);
@@ -55,9 +56,6 @@ export function register(config) {
 }
 
 function registerValidSW(swUrl, config) {
-  window.addEventListener('fetch', function(event) {
-    /** An empty fetch handler! */
-  });
   navigator.serviceWorker
     .register(swUrl)
     .then(registration => {

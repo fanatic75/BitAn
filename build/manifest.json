@@ -1,6 +1,7 @@
 {
-  "short_name": "BC",
+  "short_name": "BIT Chat",
   "name": "Bit Chat",
+  "prefer_related_applications": false,
   "icons": [
     {
       "src": "favicon.ico",
