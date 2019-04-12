@@ -75,7 +75,7 @@ class MessageList extends React.Component {
   render() {
     const { classes } = this.props;
 
-    if (this.props.messages.length!==0) {
+    if (this.props.messages.length !== 0) {
       return (
         <div className={classes.root} elevation={1}>
           <ul>
@@ -98,12 +98,17 @@ class MessageList extends React.Component {
           </ul>
         </div>
       );
-    } else{
-      return(
+    } else {
+      return (
         <div className={classes.root} elevation={1}>
-          <Paper className={classes.strMessagesCard}>
-            <p className={classes.strMessage}> Looking for a random stranger. Please Wait.</p>
-          </Paper>
+          <ul>
+            <li className={classes.noOutline}>
+              <Paper className={classes.strMessagesCard}>
+                <p className={classes.strMessage}> Looking for a random stranger. Please Wait.</p>
+              </Paper>
+            </li>
+          </ul>
+
         </div>
       );
     }
