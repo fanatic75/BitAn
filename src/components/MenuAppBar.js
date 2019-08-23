@@ -9,8 +9,6 @@ import MenuItem from '@material-ui/core/MenuItem';
 import Menu from '@material-ui/core/Menu';
 import { MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles';
 import MoreIcon from '@material-ui/icons/MoreVert';
-import ConfirmationDialog from './ConfirmationDialog';
-import DonateDialog from "./DonateDialog";
 import AboutUsDialog from "./AboutUsDialog";
 const styles = {
   root: {
@@ -46,7 +44,6 @@ class MenuAppBar extends React.Component {
   state = {
     auth: true,
     anchorEl: null,
-    dialogOpen: false,
     donateOpen: false,
     aboutUs: false,
   };
@@ -62,15 +59,7 @@ class MenuAppBar extends React.Component {
   handleClose = () => {
     this.setState({ anchorEl: null });
   };
-  dialogToggle = () => {
-    this.setState(
-      {
-        dialogOpen: !this.state.dialogOpen,
-        anchorEl: null,
-
-      });
-
-  };
+ 
   donateToggle = () => {
     this.setState(
       {
@@ -133,16 +122,15 @@ class MenuAppBar extends React.Component {
                     onClose={this.handleClose}
 
                   >
-                    <MenuItem onClick={this.dialogToggle}>
+                   {/** <MenuItem onClick={this.dialogToggle}>
 
                       Sexual Preference
                   </MenuItem>
-
-                    <MenuItem onClick={this.donateToggle}>Donate</MenuItem>
+                    **/}
+                    {/** <MenuItem onClick={this.donateToggle}>Donate</MenuItem>*/}
                     <MenuItem onClick={this.aboutUsToggle}>AboutUS</MenuItem>
                   </Menu>
-                  <ConfirmationDialog dialogToggle={this.dialogToggle} dialogOpen={this.state.dialogOpen} />
-                  <DonateDialog donateToggle={this.donateToggle} donateOpen={this.state.donateOpen} />
+                  {/** <DonateDialog donateToggle={this.donateToggle} donateOpen={this.state.donateOpen} />*/}
                   <AboutUsDialog aboutUsToggle={this.aboutUsToggle} aboutUs={this.state.aboutUs} />
                 </div>
               )}
