@@ -18,11 +18,7 @@ const getRandomIntInclusive = (min, max) => {
 }
 
 
-const roomExist = (temp,duplicateArray) =>{ //function to check if the duplicateArray contains the room already or not.
-  if(duplicateArray.includes(temp.roomNo)){
-    return true;
-  }else{return false;}
-};
+const roomExist = (temp,duplicateArray) => duplicateArray.includes(temp.roomNo)?true:false; //function to check if the duplicateArray contains the room already or not.
 
 
 
@@ -153,6 +149,6 @@ io.on("connection", socket => {
 });
 
 
-const port = 2200;
+const port = 5673;
 server.listen(process.env.PORT||port);
 console.log("app is working on port" + port);

@@ -18,14 +18,19 @@ class ChattingPage extends React.Component {
     super(props);
     this.state = {
       messages: myMessagesObject,
+      disconnect: false,
 
     }
     this.messageRef = React.createRef();
-
+    this.disconnectToggle = this.disconnectToggle.bind(this);
     this.addMessage = this.addMessage.bind(this);
     this.addStrMessage = this.addStrMessage.bind(this);
   }
-
+  disconnectToggle(){
+    this.setState({
+      disconnect:!this.state.disconnect
+    });
+  }
 
   setFocusOnMessage = () => {
     if (this.messageRef)
@@ -80,8 +85,8 @@ clearScreen = () =>{
 
           <MenuAppBar />
 
-          <MessageList messageRef={this.messageRef}  messages={this.state.messages}  addMessageFunc={this.addMessage} addStrMessage={this.addStrMessage} />
-          <BottomMessageBar myRefProp={this.createInputRef}  addMessageFunc={this.addMessage}  clearScreen={this.clearScreen} addStrMessage={this.addStrMessage}  />
+          <MessageList disconnect={this.state.disconnect} disconnectToggle={this.disconnectToggle} messageRef={this.messageRef}  messages={this.state.messages}  addMessageFunc={this.addMessage} addStrMessage={this.addStrMessage} />
+          <BottomMessageBar messages={this.state.messages} disconnect={this.state.disconnect} disconnectToggle={this.disconnectToggle} myRefProp={this.createInputRef}  addMessageFunc={this.addMessage}  clearScreen={this.clearScreen} addStrMessage={this.addStrMessage}  />
 
 
         </React.Fragment >

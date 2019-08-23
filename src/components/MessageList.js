@@ -72,6 +72,28 @@ const styles = theme => ({
 
 class MessageList extends React.Component {
 
+
+  componentDidMount(){
+    setTimeout(()=>{
+    if(this.props.messages.length===0){
+      this.props.disconnectToggle();
+    }
+    },8000);
+  }
+
+  componentDidUpdate(prevProps){
+    if(prevProps.disconnect!==this.props.disconnect){
+      if(this.props.disconnect===false)
+      setTimeout(()=>{
+        if(this.props.messages.length===0){
+          this.props.disconnectToggle();
+        }
+        },8000);
+    }
+  }
+
+
+
   render() {
     const { classes } = this.props;
 

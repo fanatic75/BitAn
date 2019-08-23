@@ -131,6 +131,17 @@ class BottomMessageBar extends React.Component {
     
   }
 
+  componentDidUpdate(prevProps){
+    if(prevProps.disconnect!==this.props.disconnect){
+      if(this.props.disconnect===true){
+        if(this.props.messages.length===0){
+          
+        this.disconnect("Oops. Looks like no one is available at the moment. Please try again later or try your luck again by clicking on New Chat.");
+        }
+      }
+    }
+  }
+
   handleSubmit(evtOrMessage) {
     if (evtOrMessage.target) {
 
@@ -176,22 +187,32 @@ class BottomMessageBar extends React.Component {
       message: e.target.value,
     });
   };
+
+  disconnect = (msg) => {
+    
+    socket.close();
+
+    this.setState({
+      value: "New Chat",
+      stateInput: true,
+      stateButton: true,
+    });
+    if(msg)
+    this.props.addMessageFunc(msg);
+    else
+    this.props.addMessageFunc(disconnectMsg);
+    this.props.disconnectToggle();
+  }
   buttonToggle() {
     if (this.state.value === "STOP") {
       this.setState({
         value: "Really?",
       });
     } else if (this.state.value === "Really?") {
-
-      socket.close();
-
-      this.setState({
-        value: "New Chat",
-        stateInput: true,
-        stateButton: true,
-      });
-      this.props.addMessageFunc(disconnectMsg);
+        this.disconnect();
     } else {
+      if(this.state.value === "NEW CHAT")
+        this.props.disconnectToggle();
       this.setState({
         value: "STOP",
         firstMessage: false,
@@ -200,6 +221,7 @@ class BottomMessageBar extends React.Component {
       });
       this.props.clearScreen();
       socket.open();
+      
 
     }
   }
