@@ -153,6 +153,6 @@ io.on("connection", socket => {
 });
 
 
-const port = 500;
+const port = 2200;
 server.listen(process.env.PORT||port);
 console.log("app is working on port" + port);

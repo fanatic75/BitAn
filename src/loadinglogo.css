@@ -139,13 +139,13 @@ margin: auto;
   opacity:1;
 }
 .logo{
-  font-family: 'Alex Brush', cursive;
-  font-size:56px;
   color:#d5b138;
   border-radius:50%;
   margin-top:15%;
 }
 .logo>div{
+  font-family: 'Alex Brush', cursive;
+  font-size:56px;
   margin-left:10%;
   margin-top:10%;
 }
