@@ -156,6 +156,6 @@ io.on("connection", socket => {
 });
 
 
-const port = 5673;
+const port = 80;
 server.listen(process.env.PORT||port);
 console.log("app is working on port" + port);
