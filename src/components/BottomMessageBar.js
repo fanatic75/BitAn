@@ -8,7 +8,7 @@ import Toolbar from "@material-ui/core/Toolbar";
 import Icon from '@material-ui/core/Icon';
 import { MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles';
 import io from 'socket.io-client';
-const socket = io.connect({ autoConnect: false, });
+const socket = io.connect("https://bitchat.website",{ autoConnect: false, });
 const disconnectMsg = "You have disconnected the chat. Please start a New Chat to start chatting with a random Stranger.";
 const styles = theme => ({
   appBar: {

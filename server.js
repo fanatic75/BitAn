@@ -59,9 +59,16 @@ const deleteRoom = (someRoom) => { //function for deleting the room and taking o
 app.get('/', function (req, res) {
   res.sendFile(__dirname + '/build/index.html');
 });
+
+
 app.get("/.well-known/pki-validation/BA0B04580497DB685C1EABF437C0200C.txt",(req,res)=>{
   res.sendFile(__dirname+'/build/.well-known/pki-validation/BA0B04580497DB685C1EABF437C0200C.txt');
 });
+
+
+app.use((req,res)=>{
+  res.status(404).redirect("https://bitchat.website");
+  });
 
 io.on("connection", socket => {
   console.log("a user has connected. "+  ++totalUsers);//added the usesr to total number of users.
