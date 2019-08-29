@@ -1,0 +1,4 @@
+This is a Brave Rewards publisher verification file.
+
+Domain: bitchat.website
+Token: 63b30e9e55c47a100b91ad29f79ecd425f0aa2e9c3a600c4b9e8b2626ab9c28a
