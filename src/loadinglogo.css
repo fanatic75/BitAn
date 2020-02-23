@@ -137,17 +137,16 @@ margin: auto;
   height: 22vh;
   margin: 4vh;
   opacity:1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 .logo{
   color:#d5b138;
-  border-radius:50%;
-  margin-top:15%;
 }
 .logo>div{
   font-family: 'Alex Brush', cursive;
   font-size:56px;
-  margin-left:10%;
-  margin-top:10%;
 }
 div>span{
 
@@ -162,7 +161,6 @@ div>span{
 .logo>div:nth-child(2){
 
 
-    margin-top:-13%;
     text-align:center;
 
 }
