@@ -1,3 +1,3 @@
-An anonymous Chatting client built by Prateek Banga
-
-The server is smooth. node js as a platform rocks! JS is the king. 
+An anonymous chatting client. 
+To run 
+do npm install
