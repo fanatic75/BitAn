@@ -1,6 +1,7 @@
 {
   "name": "anonchat",
   "version": "0.1.0",
+  "homepage":"/start-chat",
   "private": true,
   "dependencies": {
     "@material-ui/core": "^3.5.1",

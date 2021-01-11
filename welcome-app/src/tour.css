@@ -1,0 +1,13 @@
+
+header {
+    height:150px;
+    background-color: black;
+    color:#d5b138;
+    text-align: center;
+    width:100%;
+}
+header>div{
+    position:relative;
+    top:30%;
+}
+

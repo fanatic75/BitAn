@@ -3,7 +3,6 @@ const app = express();
 const server = require('http').createServer(app);
 const path = require("path");
 const io = require("socket.io").listen(server);
-app.use(express.static(path.join(__dirname, 'build')));
 let totalUsers=0;
 let noOfRooms=Math.floor((totalUsers-1)/2);
 const users = [];
@@ -56,19 +55,20 @@ const deleteRoom = (someRoom) => { //function for deleting the room and taking o
 };
 
 
-app.get('/', function (req, res) {
-  res.sendFile(__dirname + '/build/index.html');
-});
+app.use('/start-chat',express.static(path.join(__dirname,'build')));
 
+app.use("/",express.static(path.join(__dirname,'welcome-app/build')));
+/* app.use(express.static(path.join(__dirname, 'build')));
+ */
 
 app.get("/.well-known/pki-validation/BA0B04580497DB685C1EABF437C0200C.txt",(req,res)=>{
   res.sendFile(__dirname+'/build/.well-known/pki-validation/BA0B04580497DB685C1EABF437C0200C.txt');
 });
 
 
-app.use((req,res)=>{
-  res.status(404).redirect("https://bitchat.website");
-  });
+/* app.use((req,res)=>{
+  res.status(404).redirect("https://bitan.herokuapp.com");
+  }); */
 
 io.on("connection", socket => {
   console.log("a user has connected. "+  ++totalUsers);//added the usesr to total number of users.

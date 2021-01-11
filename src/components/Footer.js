@@ -33,7 +33,7 @@ class footer extends React.Component {
         className={classes.root}
       >
         <Typography className={classes.footer} variant="h6" gutterBottom>
-          Created by Prateek Banga
+          Created by Prateek Banga & Nikhil Parakh
       </Typography>
       </BottomNavigation>
     );
