@@ -21,6 +21,9 @@ class ChattingPage extends React.Component {
       disconnect: false,
 
     }
+    
+
+    document.body.style.backgroundColor = "#ffffff";
     this.messageRef = React.createRef();
     this.disconnectToggle = this.disconnectToggle.bind(this);
     this.addMessage = this.addMessage.bind(this);
@@ -75,8 +78,6 @@ clearScreen = () =>{
   render() {
 
 
-
-    if (this.props.visibility) document.body.style.backgroundColor = "#ffffff";
 
     if (this.props.visibility) {
       return (

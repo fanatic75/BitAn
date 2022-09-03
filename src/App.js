@@ -8,13 +8,8 @@ class App extends Component {
     this.state={
       visibility:true,
     };
-    this.visibilityToggle=this.visibilityToggle.bind(this);
   }
-    visibilityToggle(){
-      this.setState({
-        visibility:true,
-      });
-    }
+    
 
   render() {
 
