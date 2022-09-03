@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import StartPage from  "./components/StartPage";
 import ChattingPage from "./components/ChattingPage";
 
 
@@ -7,7 +6,7 @@ class App extends Component {
   constructor(props){
     super(props);
     this.state={
-      visibility:false,
+      visibility:true,
     };
     this.visibilityToggle=this.visibilityToggle.bind(this);
   }
@@ -23,7 +22,6 @@ class App extends Component {
     return (
 
           <React.Fragment>
-            <StartPage visibility={this.state.visibility} visibilityToggle={this.visibilityToggle} />
             <ChattingPage visibility={this.state.visibility}/>
           </React.Fragment>
     );
